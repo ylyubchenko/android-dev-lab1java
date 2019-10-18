@@ -1,15 +1,20 @@
 package ua.nure.liubchenko.lab1.adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ua.nure.liubchenko.lab1.databinding.NoteListItemBinding;
 import ua.nure.liubchenko.lab1.persistence.Note;
+import ua.nure.liubchenko.lab1.ui.notelist.NoteListFragmentDirections;
 
 public class NoteAdapter extends ListAdapter<Note, NoteViewHolder> {
 
@@ -50,7 +55,17 @@ class NoteViewHolder extends RecyclerView.ViewHolder {
 
     NoteViewHolder(NoteListItemBinding binding) {
         super(binding.getRoot());
+        binding.setClickListener(v -> {
+            navigateToNote(binding.getNote().getNoteId(), v);
+        });
         this.binding = binding;
+
+    }
+
+    private void navigateToNote(int noteId, View view) {
+        NavDirections direction = NoteListFragmentDirections
+                .actionNoteListFragmentToNoteDetailsFragment();
+        Navigation.findNavController(view).navigate(direction);
     }
 
     void bind(Note item) {

@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ua.nure.liubchenko.lab1.R;
 import ua.nure.liubchenko.lab1.adapters.NoteAdapter;
 import ua.nure.liubchenko.lab1.databinding.NoteListFragmentBinding;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;

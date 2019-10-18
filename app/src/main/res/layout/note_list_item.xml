@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
             name="note"
             type="ua.nure.liubchenko.lab1.persistence.Note"/>
     </data>
@@ -13,8 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        card_view:rippleColor="#D5D5D5"
         android:clickable="true"
+        android:onClick="@{clickListener}"
+        card_view:rippleColor="#D5D5D5"
         card_view:cardCornerRadius="5dp"
         card_view:contentPadding="12dp">
 
