@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,8 +29,8 @@ public class NoteAdapter extends ListAdapter<Note, NoteViewHolder> {
         holder.bind(getItem(position));
     }
 
-    public static final DiffUtil.ItemCallback<Note> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<Note>() {
+    private static final ItemCallback<Note> DIFF_CALLBACK =
+            new ItemCallback<Note>() {
 
                 @Override
                 public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
@@ -48,7 +48,7 @@ class NoteViewHolder extends RecyclerView.ViewHolder {
 
     private NoteListItemBinding binding;
 
-    public NoteViewHolder(NoteListItemBinding binding) {
+    NoteViewHolder(NoteListItemBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
     }

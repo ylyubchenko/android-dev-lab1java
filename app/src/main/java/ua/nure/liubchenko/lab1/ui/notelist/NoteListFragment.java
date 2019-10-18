@@ -28,8 +28,11 @@ public class NoteListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        NoteListViewModelFactory factory =
+                InjectorUtils.provideNoteListViewModelFactory(requireContext());
+
         NoteListViewModel viewModel =
-                ViewModelProviders.of(this, InjectorUtils.provideNoteListViewModelFactory(requireContext())).get(NoteListViewModel.class);
+                ViewModelProviders.of(this, factory).get(NoteListViewModel.class);
 
         NoteListFragmentBinding binding = NoteListFragmentBinding.inflate(
                 inflater, container, false);
