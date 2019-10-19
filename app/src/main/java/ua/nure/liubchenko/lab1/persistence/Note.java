@@ -1,5 +1,6 @@
 package ua.nure.liubchenko.lab1.persistence;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -33,6 +34,12 @@ public class Note {
 
     public String getDescription() {
         return description;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("Note { id = %d, title = %s, desc = %s }", noteId, title, description);
     }
 
     @Override

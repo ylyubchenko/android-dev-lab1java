@@ -56,15 +56,15 @@ class NoteViewHolder extends RecyclerView.ViewHolder {
     NoteViewHolder(NoteListItemBinding binding) {
         super(binding.getRoot());
         binding.setClickListener(v -> {
-            navigateToNote(binding.getNote().getNoteId(), v);
+            int noteId = binding.getNote().getNoteId();
+            navigateToNote(noteId, v);
         });
         this.binding = binding;
-
     }
 
     private void navigateToNote(int noteId, View view) {
         NavDirections direction = NoteListFragmentDirections
-                .actionNoteListFragmentToNoteDetailsFragment();
+                .actionNoteListFragmentToNoteDetailsFragment(noteId);
         Navigation.findNavController(view).navigate(direction);
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import ua.nure.liubchenko.lab1.persistence.NoteDatabase;
 import ua.nure.liubchenko.lab1.persistence.NoteRepository;
+import ua.nure.liubchenko.lab1.ui.notedetails.NoteDetailsViewModelFactory;
 import ua.nure.liubchenko.lab1.ui.notelist.NoteListViewModelFactory;
 
 public class InjectorUtils {
@@ -15,5 +16,10 @@ public class InjectorUtils {
 
     public static NoteListViewModelFactory provideNoteListViewModelFactory(Context context) {
         return new NoteListViewModelFactory(getNoteRepository(context));
+    }
+
+    public static NoteDetailsViewModelFactory provideNoteDetailsViewModelFactory(Context context,
+                                                                                 int noteId) {
+        return new NoteDetailsViewModelFactory(getNoteRepository(context), noteId);
     }
 }

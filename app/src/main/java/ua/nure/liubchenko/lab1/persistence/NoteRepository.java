@@ -21,6 +21,10 @@ public class NoteRepository {
         return allNotes;
     }
 
+    public LiveData<Note> getNote(int noteId) {
+        return noteDao.getNote(noteId);
+    }
+
     public void insert(Note note) {
         new InsertAsyncTask(noteDao).execute(note);
     }

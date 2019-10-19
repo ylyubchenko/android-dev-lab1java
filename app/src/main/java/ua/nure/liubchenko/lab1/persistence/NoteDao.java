@@ -13,6 +13,9 @@ public interface NoteDao {
     @Query("SELECT * from notes ORDER BY id ASC")
     LiveData<List<Note>> getAllNotes();
 
+    @Query("SELECT * FROM notes WHERE id = :noteId LIMIT 1")
+    LiveData<Note> getNote(int noteId);
+
     @Insert
     void insert(Note note);
 
