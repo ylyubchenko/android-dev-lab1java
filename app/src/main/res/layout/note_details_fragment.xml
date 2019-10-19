@@ -1,36 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<!--        <import type="ua.nure.liubchenko.lab1.persistence.Note" />-->
         <variable
             name="viewModel"
             type="ua.nure.liubchenko.lab1.ui.notedetails.NoteDetailsViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:padding="16dp"
         tools:context=".ui.notedetails.NoteDetailsFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/title"
+            style="@style/Title"
+            android:hint="@string/title"
+            android:importantForAutofill="no"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewModel.note.noteId)}" />
+            android:background="@null"
+            app:layout_constraintBottom_toTopOf="@id/desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{viewModel.note.title}"
+            tools:ignore="TextFields" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.note.title}" />
+        <EditText
+            android:id="@+id/desc"
+            style="@style/Description"
+            android:hint="@string/description"
+            android:importantForAutofill="no"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:text="@{viewModel.note.description}"
+            tools:ignore="TextFields" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.note.description}" />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
