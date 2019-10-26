@@ -2,7 +2,6 @@ package ua.nure.liubchenko.lab1.ui.notedetails;
 
 import androidx.lifecycle.ViewModelProviders;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,9 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
-import ua.nure.liubchenko.lab1.R;
 import ua.nure.liubchenko.lab1.databinding.NoteDetailsFragmentBinding;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 

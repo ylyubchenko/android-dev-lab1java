@@ -11,7 +11,7 @@
     <style name="EditText">
         <item name="android:background">@null</item>
         <item name="android:inputType">textNoSuggestions|textMultiLine|textCapSentences</item>
-        <item name="android:focusedByDefault">false</item>
+<!--        <item name="android:focusedByDefault">false</item>-->
     </style>
 
     <style name="Title" parent="EditText">

@@ -14,21 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        tools:context=".ui.notedetails.NoteDetailsFragment">
+        tools:context=".ui.notedetails.NoteDetailsFragment"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <EditText
             android:id="@+id/title"
             style="@style/Title"
-            android:hint="@string/title"
-            android:importantForAutofill="no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:hint="@string/title"
+            android:importantForAutofill="no"
+            android:text="@{viewModel.note.title}"
             app:layout_constraintBottom_toTopOf="@id/desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{viewModel.note.title}"
             tools:ignore="TextFields" />
 
         <EditText
