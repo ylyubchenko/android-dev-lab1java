@@ -1,32 +1,40 @@
 package ua.nure.liubchenko.lab1.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ua.nure.liubchenko.lab1.NoteDetailsActivity;
 import ua.nure.liubchenko.lab1.databinding.NoteListItemBinding;
 import ua.nure.liubchenko.lab1.persistence.Note;
-import ua.nure.liubchenko.lab1.ui.notelist.NoteListFragmentDirections;
 
 public class NoteAdapter extends ListAdapter<Note, NoteViewHolder> {
 
-    public NoteAdapter() {
+    private Context context;
+
+    public NoteAdapter(Context context) {
         super(DIFF_CALLBACK);
+        this.context = context;
     }
 
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NoteViewHolder(NoteListItemBinding.inflate(
-                LayoutInflater.from(parent.getContext()), parent, false));
+        NoteListItemBinding noteListItemBinding = NoteListItemBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+
+        noteListItemBinding.setClickListener(v -> {
+            Intent intent = new Intent(context, NoteDetailsActivity.class);
+            context.startActivity(intent);
+        });
+
+        return new NoteViewHolder(noteListItemBinding);
     }
 
     @Override
@@ -55,17 +63,7 @@ class NoteViewHolder extends RecyclerView.ViewHolder {
 
     NoteViewHolder(NoteListItemBinding binding) {
         super(binding.getRoot());
-        binding.setClickListener(v -> {
-            int noteId = binding.getNote().getNoteId();
-            navigateToNote(noteId, v);
-        });
         this.binding = binding;
-    }
-
-    private void navigateToNote(int noteId, View view) {
-        NavDirections direction = NoteListFragmentDirections
-                .actionNoteListFragmentToNoteDetailsFragment(noteId);
-        Navigation.findNavController(view).navigate(direction);
     }
 
     void bind(Note item) {

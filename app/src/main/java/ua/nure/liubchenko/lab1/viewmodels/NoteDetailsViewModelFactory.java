@@ -1,4 +1,4 @@
-package ua.nure.liubchenko.lab1.ui.notedetails;
+package ua.nure.liubchenko.lab1.viewmodels;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;

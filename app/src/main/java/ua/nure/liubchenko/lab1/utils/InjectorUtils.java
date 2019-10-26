@@ -4,8 +4,8 @@ import android.content.Context;
 
 import ua.nure.liubchenko.lab1.persistence.NoteDatabase;
 import ua.nure.liubchenko.lab1.persistence.NoteRepository;
-import ua.nure.liubchenko.lab1.ui.notedetails.NoteDetailsViewModelFactory;
-import ua.nure.liubchenko.lab1.ui.notelist.NoteListViewModelFactory;
+import ua.nure.liubchenko.lab1.viewmodels.NoteDetailsViewModelFactory;
+import ua.nure.liubchenko.lab1.viewmodels.NoteListViewModelFactory;
 
 public class InjectorUtils {
 
