@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="ua.nure.liubchenko.lab1.ui.notedetails.NoteDetailsViewModel" />
+            type="ua.nure.liubchenko.lab1.viewmodels.NoteDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
