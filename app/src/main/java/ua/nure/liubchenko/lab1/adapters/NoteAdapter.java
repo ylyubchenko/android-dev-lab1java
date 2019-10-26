@@ -14,7 +14,7 @@ import ua.nure.liubchenko.lab1.NoteDetailsActivity;
 import ua.nure.liubchenko.lab1.databinding.NoteListItemBinding;
 import ua.nure.liubchenko.lab1.persistence.Note;
 
-public class NoteAdapter extends ListAdapter<Note, NoteViewHolder> {
+public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteViewHolder> {
 
     private Context context;
 
@@ -26,15 +26,8 @@ public class NoteAdapter extends ListAdapter<Note, NoteViewHolder> {
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        NoteListItemBinding noteListItemBinding = NoteListItemBinding.inflate(
-                LayoutInflater.from(parent.getContext()), parent, false);
-
-        noteListItemBinding.setClickListener(v -> {
-            Intent intent = new Intent(context, NoteDetailsActivity.class);
-            context.startActivity(intent);
-        });
-
-        return new NoteViewHolder(noteListItemBinding);
+        return new NoteViewHolder(NoteListItemBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -55,19 +48,28 @@ public class NoteAdapter extends ListAdapter<Note, NoteViewHolder> {
                     return oldItem.equals(newItem);
                 }
             };
+
+    class NoteViewHolder extends RecyclerView.ViewHolder {
+
+        private NoteListItemBinding binding;
+
+        NoteViewHolder(NoteListItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        void bind(Note item) {
+            binding.setNote(item);
+            binding.setClickListener(v -> {
+                context.startActivity(new Intent(context, NoteDetailsActivity.class)
+                        .setAction(Intent.ACTION_EDIT)
+                        .putExtra("ua.nure.liubchenko.lab1.NoteId", item.getNoteId()));
+            });
+            binding.executePendingBindings();
+        }
+    }
 }
 
-class NoteViewHolder extends RecyclerView.ViewHolder {
 
-    private NoteListItemBinding binding;
 
-    NoteViewHolder(NoteListItemBinding binding) {
-        super(binding.getRoot());
-        this.binding = binding;
-    }
 
-    void bind(Note item) {
-        binding.setNote(item);
-        binding.executePendingBindings();
-    }
-}
