@@ -2,7 +2,14 @@ package ua.nure.liubchenko.lab1.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,11 +17,13 @@ import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ua.nure.liubchenko.lab1.NoteDetailsActivity;
+import ua.nure.liubchenko.lab1.ShowNoteActivity;
 import ua.nure.liubchenko.lab1.databinding.NoteListItemBinding;
 import ua.nure.liubchenko.lab1.persistence.Note;
 
 public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteViewHolder> {
+
+    private static String TAG = NoteAdapter.class.getSimpleName();
 
     private Context context;
 
@@ -49,7 +58,7 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteViewHolder> {
                 }
             };
 
-    class NoteViewHolder extends RecyclerView.ViewHolder {
+    class NoteViewHolder extends RecyclerView.ViewHolder implements OnCreateContextMenuListener {
 
         private NoteListItemBinding binding;
 
@@ -60,13 +69,36 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteViewHolder> {
 
         void bind(Note item) {
             binding.setNote(item);
+            binding.getRoot().setOnCreateContextMenuListener(this);
             binding.setClickListener(v -> {
-                context.startActivity(new Intent(context, NoteDetailsActivity.class)
+                context.startActivity(new Intent(context, ShowNoteActivity.class)
                         .setAction(Intent.ACTION_EDIT)
-                        .putExtra("ua.nure.liubchenko.lab1.NoteId", item.getNoteId()));
+                        .putExtra(Note.class.getName(), item.getNoteId()));
             });
             binding.executePendingBindings();
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Note actions");
+            menu.add(Menu.NONE, 1, 1, "Edit")
+                    .setOnMenuItemClickListener(onEditMenu);
+            menu.add(Menu.NONE, 2, 2, "Delete")
+                    .setOnMenuItemClickListener(onEditMenu);
+        }
+
+        private final MenuItem.OnMenuItemClickListener onEditMenu = item -> {
+            switch (item.getItemId()) {
+                case 1:
+                    Log.d(TAG, "Edit");
+                    break;
+                case 2:
+                    Log.d(TAG, "Delete");
+                    break;
+            }
+            return true;
+        };
+
     }
 }
 

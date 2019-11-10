@@ -5,10 +5,16 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 @Entity(tableName = "notes")
 public class Note {
+
+    private static DateFormat DATE_FORMAT =
+            DateFormat.getDateInstance(DateFormat.SHORT);
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -18,10 +24,15 @@ public class Note {
 
     private String description;
 
-    public Note(int noteId, String title, String description) {
+    private long date;
+
+    //private Importance importance;
+
+    public Note(int noteId, String title, String description, long date) {
         this.noteId = noteId;
         this.title = title;
         this.description = description;
+        this.date = date;
     }
 
     public int getNoteId() {
@@ -36,10 +47,22 @@ public class Note {
         return description;
     }
 
+    public long getDate() { return date; }
+
+    public String getDateAsString() {
+        return DATE_FORMAT.format(new Date(date));
+    }
+
+//    public Importance getImportance() {
+//        return importance;
+//    }
+
     @NonNull
     @Override
     public String toString() {
-        return String.format("Note { id = %d, title = %s, desc = %s }", noteId, title, description);
+        String str = "Note { id = %d, title = %s, desc = %s, date = %s }";
+        String dateFormatted = DATE_FORMAT.format(new Date(date));
+        return String.format(Locale.getDefault(), str, noteId, title, description, dateFormatted);
     }
 
     @Override
@@ -50,7 +73,8 @@ public class Note {
         Note n = (Note) o;
         return noteId == n.noteId
                 && title.equals(n.title)
-                && description.equals(n.description);
+                && description.equals(n.description)
+                && date == n.date;
     }
 
     @Override
@@ -58,7 +82,14 @@ public class Note {
         return Objects.hash(
                 noteId,
                 title,
-                description
+                description,
+                date
         );
+    }
+
+    public enum Importance {
+        LOW,
+        NORMAL,
+        HIGH,
     }
 }

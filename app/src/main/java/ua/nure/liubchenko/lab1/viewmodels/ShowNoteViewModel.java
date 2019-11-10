@@ -8,14 +8,14 @@ import org.jetbrains.annotations.NotNull;
 import ua.nure.liubchenko.lab1.persistence.NoteRepository;
 import ua.nure.liubchenko.lab1.persistence.Note;
 
-public class NoteDetailsViewModel extends ViewModel {
+public class ShowNoteViewModel extends ViewModel {
 
     private NoteRepository repository;
 
     private LiveData<Note> note;
 
-    public NoteDetailsViewModel(@NotNull NoteRepository repository,
-                                int noteId) {
+    public ShowNoteViewModel(@NotNull NoteRepository repository,
+                             int noteId) {
         this.repository = repository;
         this.note = repository.getNote(noteId);
     }

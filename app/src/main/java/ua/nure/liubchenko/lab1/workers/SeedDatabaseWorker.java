@@ -45,6 +45,8 @@ public class SeedDatabaseWorker extends Worker {
             Type noteType = new TypeToken<List<Note>>(){}.getType();
             List<Note> notes = new Gson().fromJson(jsonReader, noteType);
 
+            notes.forEach(note -> Log.d(TAG, "Seeded " + note.toString()));
+
             NoteDatabase db = NoteDatabase.getDatabase(getApplicationContext());
             db.noteDao().insertAll(notes);
 

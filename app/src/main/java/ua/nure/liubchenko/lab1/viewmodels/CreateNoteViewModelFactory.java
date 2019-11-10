@@ -6,22 +6,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import ua.nure.liubchenko.lab1.persistence.NoteRepository;
 
-public class NoteDetailsViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+public class CreateNoteViewModelFactory extends ViewModelProvider.NewInstanceFactory  {
 
     private NoteRepository repository;
 
-    private int noteId;
-
-    public NoteDetailsViewModelFactory(NoteRepository repository,
-                                       int noteId) {
+    public CreateNoteViewModelFactory(NoteRepository repository) {
         this.repository = repository;
-        this.noteId = noteId;
     }
 
     @SuppressWarnings("unchecked")
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new NoteDetailsViewModel(repository, noteId);
+        return (T) new CreateNoteViewModel(repository);
     }
 }

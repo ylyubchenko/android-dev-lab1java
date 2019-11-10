@@ -2,4 +2,11 @@
     <string name="app_name">Лаб1 ПЗПІ-16-2 Любченко</string>
     <string name="description">Description</string>
     <string name="title">Title</string>
+    <string name="importance">Importance</string>
+    <string name="importance1">Low</string>
+    <string name="importance2">Normal</string>
+    <string name="importance3">High</string>
+    <string name="pick_date">Date</string>
+    <string name="pick_image">Image</string>
+    <string name="save">Save</string>
 </resources>
