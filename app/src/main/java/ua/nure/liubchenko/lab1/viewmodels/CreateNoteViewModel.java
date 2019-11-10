@@ -27,13 +27,15 @@ public class CreateNoteViewModel extends ViewModel {
     private MutableLiveData<String> description=
             new MutableLiveData<>("");
 
-    private MutableLiveData<String> priority=
-            new MutableLiveData<>("");
+    private MutableLiveData<Note.Importance> importance =
+            new MutableLiveData<>(Note.Importance.NORMAL);
 
     private MutableLiveData<Long> date =
             new MutableLiveData<>(0L);
 
-    private LiveData<String> dateText = Transformations.map(date, (Long d) ->
+    private LiveData<String> importanceText = Transformations.map(importance, Enum::name);
+
+    private LiveData<String> dateText = Transformations.map(date, d ->
         d == 0 ? "" : DateFormat.getDateInstance(DateFormat.SHORT).format(new Date(d)));
 
     public CreateNoteViewModel(@NotNull NoteRepository repository) {
@@ -48,8 +50,8 @@ public class CreateNoteViewModel extends ViewModel {
         return description;
     }
 
-    public LiveData<String> getPriority() {
-        return priority;
+    public LiveData<String> getImportance() {
+        return importanceText;
     }
 
     public LiveData<String> getDate() {
@@ -64,12 +66,18 @@ public class CreateNoteViewModel extends ViewModel {
         this.description.setValue(description);
     }
 
+    public void setImportance(String importance) {
+        this.importance.setValue(
+                Note.Importance.valueOf(importance.toUpperCase()));
+    }
+
     public void setDate(Long date) {
         this.date.setValue(date);
     }
 
     public void save() {
-        Note note = new Note(0, title.getValue(), description.getValue(), date.getValue());
+        Note note = new Note(0, title.getValue(), description.getValue(), date.getValue(),
+                importance.getValue());
         Log.d(TAG, String.format("Saving: %s", note.toString()));
         repository.insert(note);
     }

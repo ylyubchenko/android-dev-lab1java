@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateUnitTest {
+import ua.nure.liubchenko.lab1.persistence.Note
+
+class NoteUnitTest {
 
     @Test fun dateFormat_isCorrect() {
         val sdf = SimpleDateFormat("dd/MM/yyyy")

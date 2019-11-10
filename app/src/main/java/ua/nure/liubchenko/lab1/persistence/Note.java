@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -26,13 +27,15 @@ public class Note {
 
     private long date;
 
-    //private Importance importance;
+    @TypeConverters(NoteTypeConverters.class)
+    private Importance importance;
 
-    public Note(int noteId, String title, String description, long date) {
+    public Note(int noteId, String title, String description, long date, Importance importance) {
         this.noteId = noteId;
         this.title = title;
         this.description = description;
         this.date = date;
+        this.importance = importance;
     }
 
     public int getNoteId() {
@@ -53,16 +56,17 @@ public class Note {
         return DATE_FORMAT.format(new Date(date));
     }
 
-//    public Importance getImportance() {
-//        return importance;
-//    }
+    public Importance getImportance() {
+        return importance;
+    }
 
     @NonNull
     @Override
     public String toString() {
-        String str = "Note { id = %d, title = %s, desc = %s, date = %s }";
+        String str = "Note { id = %d, title = %s, desc = %s, importance = %s, date = %s }";
         String dateFormatted = DATE_FORMAT.format(new Date(date));
-        return String.format(Locale.getDefault(), str, noteId, title, description, dateFormatted);
+        return String.format(Locale.getDefault(), str, noteId, title, description,
+                importance.name(), dateFormatted);
     }
 
     @Override
@@ -88,8 +92,16 @@ public class Note {
     }
 
     public enum Importance {
-        LOW,
-        NORMAL,
-        HIGH,
+        LOW(0), NORMAL(1), HIGH(2);
+
+        private final int value;
+
+        Importance(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }

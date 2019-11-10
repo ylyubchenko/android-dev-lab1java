@@ -2,26 +2,31 @@
   {
     "title": "Title 1",
     "description": "Description 1",
+    "importance": "NORMAL",
     "date": 1572030158000
   },
   {
     "title": "Title 2",
     "description":  "Description 2",
+    "importance": "LOW",
     "date": 1572116558000
   },
   {
     "title": "Title 3",
     "description":  "Description 3",
+    "importance": "LOW",
     "date": 1572206558000
   },
   {
     "title": "Title 4",
     "description":  "Description 4",
+    "importance": "HIGH",
     "date": 1572292958000
   },
   {
     "title": "Title 5",
     "description":  "Description 5",
+    "importance": "NORMAL",
     "date": 1572379358000
   }
 ]

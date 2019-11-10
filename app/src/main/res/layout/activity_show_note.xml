@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="ua.nure.liubchenko.lab1.persistence.Note" />
         <variable
             name="viewModel"
             type="ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModel" />
@@ -76,40 +77,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor"
+                android:text="@{viewModel.note.importance.name()}" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/importance"-->
-        <!--            android:textSize="18sp"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="@string/importance"/>-->
-
-        <!--        <RadioGroup-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:checkedButton="@id/second"-->
-        <!--            android:orientation="vertical">-->
-
-        <!--            <RadioButton-->
-        <!--                android:id="@+id/first"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="@string/importance1" />-->
-        <!--            <RadioButton-->
-        <!--                android:id="@+id/second"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="@string/importance2" />-->
-        <!--            <RadioButton-->
-        <!--                android:id="@+id/third"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="@string/importance3" />-->
-        <!--        </RadioGroup>-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/date_layout"

@@ -49,7 +49,6 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         List<String> priorities = Stream.of(Note.Importance.values())
                 .map(Note.Importance::name)
-                .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase())
                 .collect(Collectors.toList());
 
         ArrayAdapter adapter =
@@ -77,6 +76,8 @@ public class CreateNoteActivity extends AppCompatActivity {
         binding.title.addTextChangedListener(provideTextWatcher(viewModel::setTitle));
 
         binding.desc.addTextChangedListener(provideTextWatcher(viewModel::setDescription));
+
+        binding.importance.addTextChangedListener(provideTextWatcher(viewModel::setImportance));
 
         binding.save.setOnClickListener(v -> {
             viewModel.save();

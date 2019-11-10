@@ -47,7 +47,6 @@ public class ShowNoteActivity extends AppCompatActivity {
 
         List<String> priorities = Stream.of(Importance.values())
                 .map(Importance::name)
-                .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase())
                 .collect(Collectors.toList());
 
         ArrayAdapter adapter =
