@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -43,18 +46,26 @@ public class ShowNoteActivity extends AppCompatActivity {
 
         binding.setViewModel(viewModel);
 
-        viewModel.getNote().observe(this, note -> Log.d(TAG, note.toString()));
+        viewModel.getNote().observe(this, note -> {
+            Log.d(TAG, note.toString());
 
-        List<String> priorities = Stream.of(Importance.values())
-                .map(Importance::name)
-                .collect(Collectors.toList());
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
 
-        ArrayAdapter adapter =
-                new ArrayAdapter<>(
-                        this,
-                        R.layout.dropdown_menu_popup_item,
-                        priorities);
-
-        binding.importance.setAdapter(adapter);
+            binding.image.setImageBitmap(bitmap);
+        });
+//
+//        List<String> priorities = Stream.of(Importance.values())
+//                .map(Importance::name)
+//                .collect(Collectors.toList());
+//
+//        ArrayAdapter adapter =
+//                new ArrayAdapter<>(
+//                        this,
+//                        R.layout.dropdown_menu_popup_item,
+//                        priorities);
+//
+//        binding.importance.setAdapter(adapter);
     }
 }

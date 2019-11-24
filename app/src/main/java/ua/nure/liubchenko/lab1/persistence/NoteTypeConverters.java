@@ -3,8 +3,7 @@ package ua.nure.liubchenko.lab1.persistence;
 import androidx.room.TypeConverter;
 import ua.nure.liubchenko.lab1.persistence.Note.Importance;
 
-import java.util.Date;
-
+@SuppressWarnings("WeakerAccess")
 public class NoteTypeConverters {
     @TypeConverter
     public static Importance fromInt(int i) {
@@ -12,7 +11,7 @@ public class NoteTypeConverters {
     }
 
     @TypeConverter
-    public static int fromImportance(Importance importance) {
-        return importance.getValue();
+    public static int fromImportance(Importance im) {
+        return im.getValue();
     }
 }

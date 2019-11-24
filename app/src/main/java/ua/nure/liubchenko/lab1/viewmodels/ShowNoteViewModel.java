@@ -10,13 +10,9 @@ import ua.nure.liubchenko.lab1.persistence.Note;
 
 public class ShowNoteViewModel extends ViewModel {
 
-    private NoteRepository repository;
-
     private LiveData<Note> note;
 
-    public ShowNoteViewModel(@NotNull NoteRepository repository,
-                             int noteId) {
-        this.repository = repository;
+    public ShowNoteViewModel(@NotNull NoteRepository repository, int noteId) {
         this.note = repository.getNote(noteId);
     }
 

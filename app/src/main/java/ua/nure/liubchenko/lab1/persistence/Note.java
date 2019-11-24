@@ -30,12 +30,15 @@ public class Note {
     @TypeConverters(NoteTypeConverters.class)
     private Importance importance;
 
-    public Note(int noteId, String title, String description, long date, Importance importance) {
+    private String imagePath;
+
+    public Note(int noteId, String title, String description, long date, Importance importance, String imagePath) {
         this.noteId = noteId;
         this.title = title;
         this.description = description;
         this.date = date;
         this.importance = importance;
+        this.imagePath = imagePath;
     }
 
     public int getNoteId() {
@@ -60,13 +63,32 @@ public class Note {
         return importance;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public enum Importance {
+        LOW(0), NORMAL(1), HIGH(2);
+
+        private final int value;
+
+        Importance(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
     @NonNull
     @Override
     public String toString() {
-        String str = "Note { id = %d, title = %s, desc = %s, importance = %s, date = %s }";
+        String str = "Note { id = %d, title = %s, desc = %s, importance = %s, date = %s,"
+                + " imagePath = %s }";
         String dateFormatted = DATE_FORMAT.format(new Date(date));
         return String.format(Locale.getDefault(), str, noteId, title, description,
-                importance.name(), dateFormatted);
+                importance.name(), dateFormatted, imagePath);
     }
 
     @Override
@@ -89,19 +111,5 @@ public class Note {
                 description,
                 date
         );
-    }
-
-    public enum Importance {
-        LOW(0), NORMAL(1), HIGH(2);
-
-        private final int value;
-
-        Importance(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
     }
 }

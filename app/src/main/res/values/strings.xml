@@ -1,5 +1,5 @@
-<resources>
-    <string name="app_name">Лаб1 ПЗПІ-16-2 Любченко</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="TypographyDashes">Лаб1 ПЗПІ-16-2 Любченко</string>
     <string name="description">Description</string>
     <string name="title">Title</string>
     <string name="importance">Importance</string>
@@ -9,4 +9,6 @@
     <string name="pick_date">Date</string>
     <string name="pick_image">Image</string>
     <string name="save">Save</string>
+    <string name="image_view">image view</string>
+    <string name="attached_image">Attached image</string>
 </resources>

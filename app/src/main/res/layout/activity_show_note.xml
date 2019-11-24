@@ -20,117 +20,97 @@
         android:padding="16dp"
         tools:context=".ShowNoteActivity">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/title_layout"
+
+        <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/title"
+            android:text="@{`Title: ` + viewModel.note.title}"
+            android:textSize="18sp"
             app:boxBackgroundColor="@color/lightGrey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@{viewModel.note.title}"
-                android:textSize="18sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/desc_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/description"
-            app:boxBackgroundColor="@color/lightGrey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_layout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.note.description}"
-                android:textSize="18sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/importance_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        <TextView
+            android:id="@+id/desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/importance"
-            app:boxBackgroundColor="@color/lightGrey"
+            android:textSize="18sp"
+            android:text="@{`Description: ` + viewModel.note.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/desc_layout"
-            app:startIconDrawable="@drawable/ic_star_24dp">
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:text="Description" />
 
-            <AutoCompleteTextView
-                android:id="@+id/importance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                tools:ignore="LabelFor"
-                android:text="@{viewModel.note.importance.name()}" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/date_layout"
+        <TextView
+            android:id="@+id/importance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/pick_date"
-            app:boxBackgroundColor="@color/lightGrey"
+            android:textSize="18sp"
+            android:text="@{`Importance: ` + viewModel.note.importance.name()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/importance_layout"
-            app:startIconDrawable="@drawable/ic_calendar_today_24dp">
+            app:layout_constraintTop_toBottomOf="@+id/desc"
+            tools:ignore="LabelFor"
+            tools:text="Importance" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@{viewModel.note.dateAsString}"
-                android:textSize="18sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/image_layout"
+        <TextView
+            android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/pick_image"
-            app:boxBackgroundColor="@color/lightGrey"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:text="@{`Date: ` + viewModel.note.dateAsString}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date_layout"
-            app:startIconDrawable="@drawable/ic_photo_24dp">
+            app:layout_constraintTop_toBottomOf="@+id/importance"
+            tools:text="Date" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:textSize="18sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_photo_24dp"
+            android:contentDescription="@string/attached_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/date"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:text="@{viewModel.note.dateAsString}"-->
+<!--            android:textSize="18sp" />-->
+
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/image_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="@string/pick_image"-->
+<!--            app:boxBackgroundColor="@color/lightGrey"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/date_layout"-->
+<!--            app:startIconDrawable="@drawable/ic_photo_24dp">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/image"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                android:textSize="18sp" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
