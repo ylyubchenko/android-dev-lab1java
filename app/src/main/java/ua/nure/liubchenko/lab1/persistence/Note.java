@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+import ua.nure.liubchenko.lab1.utils.NoteTypeConverters;
+
 @Entity(tableName = "notes")
 public class Note {
 
@@ -19,7 +21,7 @@ public class Note {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private int noteId;
+    private long noteId;
 
     private String title;
 
@@ -32,7 +34,7 @@ public class Note {
 
     private String imagePath;
 
-    public Note(int noteId, String title, String description, long date, Importance importance, String imagePath) {
+    public Note(long noteId, String title, String description, long date, Importance importance, String imagePath) {
         this.noteId = noteId;
         this.title = title;
         this.description = description;
@@ -41,7 +43,7 @@ public class Note {
         this.imagePath = imagePath;
     }
 
-    public int getNoteId() {
+    public long getNoteId() {
         return noteId;
     }
 

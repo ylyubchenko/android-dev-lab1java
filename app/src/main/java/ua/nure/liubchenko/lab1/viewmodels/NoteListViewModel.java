@@ -27,4 +27,8 @@ public class NoteListViewModel extends ViewModel {
     public void insert(Note note) {
         noteRepository.insert(note);
     }
+
+    public void delete(Note note) {
+        noteRepository.delete(note);
+    }
 }

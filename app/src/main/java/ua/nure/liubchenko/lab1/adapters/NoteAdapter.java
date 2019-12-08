@@ -2,63 +2,56 @@ package ua.nure.liubchenko.lab1.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil.ItemCallback;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ua.nure.liubchenko.lab1.ShowNoteActivity;
 import ua.nure.liubchenko.lab1.databinding.NoteListItemBinding;
 import ua.nure.liubchenko.lab1.persistence.Note;
 
-public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteViewHolder> {
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
     private static String TAG = NoteAdapter.class.getSimpleName();
 
     private Context context;
 
+    private List<Note> notes;
+
     public NoteAdapter(Context context) {
-        super(DIFF_CALLBACK);
         this.context = context;
     }
 
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NoteViewHolder(NoteListItemBinding.inflate(
-                LayoutInflater.from(parent.getContext()), parent, false));
+        NoteListItemBinding binding = NoteListItemBinding.inflate(
+                LayoutInflater.from(context), parent, false);
+        return new NoteViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        holder.bind(getItem(position));
+        holder.bind(notes.get(position));
     }
 
-    private static final ItemCallback<Note> DIFF_CALLBACK =
-            new ItemCallback<Note>() {
+    @Override
+    public int getItemCount() {
+        return notes != null ? notes.size() : 0;
+    }
 
-                @Override
-                public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-                    return oldItem.getNoteId() == newItem.getNoteId();
-                }
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+        this.notifyDataSetChanged();
+    }
 
-                @Override
-                public boolean areContentsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-                    return oldItem.equals(newItem);
-                }
-            };
-
-    class NoteViewHolder extends RecyclerView.ViewHolder implements OnCreateContextMenuListener {
+    class NoteViewHolder extends ViewHolder {
 
         private NoteListItemBinding binding;
 
@@ -69,39 +62,11 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteViewHolder> {
 
         void bind(Note item) {
             binding.setNote(item);
-            binding.getRoot().setOnCreateContextMenuListener(this);
-            binding.setClickListener(v -> {
+            binding.setClickListener(v ->
                 context.startActivity(new Intent(context, ShowNoteActivity.class)
                         .setAction(Intent.ACTION_EDIT)
-                        .putExtra(Note.class.getName(), item.getNoteId()));
-            });
+                        .putExtra(Note.class.getName(), item.getNoteId())));
             binding.executePendingBindings();
         }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Note actions");
-            menu.add(Menu.NONE, 1, 1, "Edit")
-                    .setOnMenuItemClickListener(onEditMenu);
-            menu.add(Menu.NONE, 2, 2, "Delete")
-                    .setOnMenuItemClickListener(onEditMenu);
-        }
-
-        private final MenuItem.OnMenuItemClickListener onEditMenu = item -> {
-            switch (item.getItemId()) {
-                case 1:
-                    Log.d(TAG, "Edit");
-                    break;
-                case 2:
-                    Log.d(TAG, "Delete");
-                    break;
-            }
-            return true;
-        };
-
     }
 }
-
-
-
-

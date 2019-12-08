@@ -1,9 +1,8 @@
-package ua.nure.liubchenko.lab1.persistence;
+package ua.nure.liubchenko.lab1.utils;
 
 import androidx.room.TypeConverter;
 import ua.nure.liubchenko.lab1.persistence.Note.Importance;
 
-@SuppressWarnings("WeakerAccess")
 public class NoteTypeConverters {
     @TypeConverter
     public static Importance fromInt(int i) {

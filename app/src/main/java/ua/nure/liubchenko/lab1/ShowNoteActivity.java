@@ -47,13 +47,16 @@ public class ShowNoteActivity extends AppCompatActivity {
         binding.setViewModel(viewModel);
 
         viewModel.getNote().observe(this, note -> {
-            Log.d(TAG, note.toString());
+            if (note != null) {
+                Log.d(TAG, note.toString());
 
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
 
-            binding.image.setImageBitmap(bitmap);
+                binding.image.setImageBitmap(bitmap);
+            }
+
         });
 //
 //        List<String> priorities = Stream.of(Importance.values())

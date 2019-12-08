@@ -2,6 +2,7 @@ package ua.nure.liubchenko.lab1;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -57,6 +58,10 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_note);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        toolbar.inflateMenu(R.menu.menu_main);
+
         CreateNoteViewModelFactory factory =
                 InjectorUtils.provideCreateNoteViewModelFactory(this);
 
@@ -108,8 +113,6 @@ public class CreateNoteActivity extends AppCompatActivity {
         binding.desc.addTextChangedListener(provideTextWatcher(viewModel::setDescription));
 
         binding.importance.addTextChangedListener(provideTextWatcher(viewModel::setImportance));
-
-        binding.imageView.setImageDrawable(getDrawable(R.drawable.ic_photo_24dp));
 
         viewModel.getImage().observe(this, i -> {
             if (i != null) {

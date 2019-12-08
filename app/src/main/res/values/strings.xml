@@ -11,4 +11,6 @@
     <string name="save">Save</string>
     <string name="image_view">image view</string>
     <string name="attached_image">Attached image</string>
+    <string name="menu_item_filter">Filter</string>
+    <string name="menu_item_delete">Delete</string>
 </resources>

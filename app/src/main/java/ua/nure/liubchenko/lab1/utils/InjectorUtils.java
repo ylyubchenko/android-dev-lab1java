@@ -10,7 +10,7 @@ import ua.nure.liubchenko.lab1.viewmodels.NoteListViewModelFactory;
 
 public class InjectorUtils {
 
-    private static NoteRepository getNoteRepository(Context context) {
+    public static NoteRepository getNoteRepository(Context context) {
         return NoteRepository.getInstance(
                 NoteDatabase.getDatabase(context.getApplicationContext()).noteDao());
     }

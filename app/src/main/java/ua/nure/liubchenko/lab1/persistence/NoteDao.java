@@ -14,7 +14,7 @@ public interface NoteDao {
     LiveData<List<Note>> getAllNotes();
 
     @Query("SELECT * FROM notes WHERE id = :noteId LIMIT 1")
-    LiveData<Note> getNote(int noteId);
+    LiveData<Note> getNote(long noteId);
 
     @Insert
     void insert(Note note);
@@ -22,6 +22,6 @@ public interface NoteDao {
     @Insert
     void insertAll(List<Note> notes);
 
-    @Query("DELETE FROM notes")
-    void deleteAll();
+    @Query("DELETE FROM notes WHERE id = :noteId")
+    void delete(long noteId);
 }

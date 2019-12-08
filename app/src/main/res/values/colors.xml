@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#673AB7</color>
     <color name="colorAccent">#FFA726</color>
     <color name="lightGrey">#83F3F3F3</color>
+    <color name="importanceHigh">#512DA8</color>
+    <color name="importanceNormal">#B39DDB</color>
+    <color name="importanceLow">#EDE7F6</color>
 </resources>
