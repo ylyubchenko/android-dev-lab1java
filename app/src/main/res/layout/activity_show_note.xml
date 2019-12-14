@@ -14,28 +14,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:padding="16dp"
         tools:context=".ShowNoteActivity">
 
-
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/show_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@{`Title: ` + viewModel.note.title}"
             android:textSize="18sp"
             app:boxBackgroundColor="@color/lightGrey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/show_image"
             tools:text="Title" />
 
-
         <TextView
-            android:id="@+id/desc"
+            android:id="@+id/show_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -43,12 +40,12 @@
             android:text="@{`Description: ` + viewModel.note.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/show_title"
             tools:text="Description" />
 
 
         <TextView
-            android:id="@+id/importance"
+            android:id="@+id/show_importance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -56,12 +53,12 @@
             android:text="@{`Importance: ` + viewModel.note.importance.name()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/desc"
+            app:layout_constraintTop_toBottomOf="@id/show_desc"
             tools:ignore="LabelFor"
             tools:text="Importance" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/show_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -69,48 +66,18 @@
             android:text="@{`Date: ` + viewModel.note.dateAsString}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/importance"
+            app:layout_constraintTop_toBottomOf="@id/show_importance"
             tools:text="Date" />
 
         <ImageView
-            android:id="@+id/image"
-            android:layout_width="wrap_content"
+            android:id="@+id/show_image"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_photo_24dp"
             android:contentDescription="@string/attached_image"
+            android:src="@drawable/ic_photo_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/date"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="16dp"-->
-<!--            android:text="@{viewModel.note.dateAsString}"-->
-<!--            android:textSize="18sp" />-->
-
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/image_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="@string/pick_image"-->
-<!--            app:boxBackgroundColor="@color/lightGrey"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/date_layout"-->
-<!--            app:startIconDrawable="@drawable/ic_photo_24dp">-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/image"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="16dp"-->
-<!--                android:textSize="18sp" />-->
-
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

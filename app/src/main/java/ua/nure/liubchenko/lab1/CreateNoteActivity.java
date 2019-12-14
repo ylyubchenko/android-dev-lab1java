@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -101,7 +102,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
                 ImagePicker.Companion.with(this)
                         .compress(1024)
-                        .maxResultSize(1080, 1080)
+                        .maxResultSize(512, 512)
                         .start();
             }
 
@@ -124,6 +125,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
                 binding.imageView.setImageBitmap(bitmap);
                 binding.image.setText(path);
+                ///binding.imageView.setMaxHeight(bitmap.);
             }
         });
 

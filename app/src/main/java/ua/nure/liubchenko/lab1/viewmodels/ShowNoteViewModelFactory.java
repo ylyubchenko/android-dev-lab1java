@@ -10,10 +10,10 @@ public class ShowNoteViewModelFactory extends ViewModelProvider.NewInstanceFacto
 
     private NoteRepository repository;
 
-    private int noteId;
+    private long noteId;
 
     public ShowNoteViewModelFactory(NoteRepository repository,
-                                    int noteId) {
+                                    long noteId) {
         this.repository = repository;
         this.noteId = noteId;
     }

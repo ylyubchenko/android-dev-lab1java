@@ -9,12 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-import java.util.ArrayList;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.util.List;
 
 import ua.nure.liubchenko.lab1.ShowNoteActivity;
 import ua.nure.liubchenko.lab1.databinding.NoteListItemBinding;
 import ua.nure.liubchenko.lab1.persistence.Note;
+import ua.nure.liubchenko.lab1.persistence.NoteRepository;
+import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
@@ -22,10 +25,18 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     private Context context;
 
+    private NoteRepository noteRepository;
+
     private List<Note> notes;
 
     public NoteAdapter(Context context) {
         this.context = context;
+        noteRepository = InjectorUtils.getNoteRepository(context);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return notes.get(position).getNoteId();
     }
 
     @NonNull
@@ -38,7 +49,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        holder.bind(notes.get(position));
+        holder.bind(position, notes.get(position));
+        holder.binding.card.setActivated(true);
     }
 
     @Override
@@ -48,7 +60,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public void setNotes(List<Note> notes) {
         this.notes = notes;
-        this.notifyDataSetChanged();
     }
 
     class NoteViewHolder extends ViewHolder {
@@ -60,12 +71,25 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             this.binding = binding;
         }
 
-        void bind(Note item) {
-            binding.setNote(item);
-            binding.setClickListener(v ->
+        void bind(int position, Note note) {
+            binding.setNote(note);
+            binding.card.setOnLongClickListener(v -> {
+                new MaterialAlertDialogBuilder(context)
+                        .setTitle("Note deletion")
+                        .setMessage(String.format("Are you sure you want to delete note " +
+                                "with title \"%s\"?", note.getTitle()))
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            noteRepository.delete(note);
+                            NoteAdapter.this.notifyItemRemoved(position);
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                return true;
+            });
+            binding.card.setOnClickListener(v ->
                 context.startActivity(new Intent(context, ShowNoteActivity.class)
                         .setAction(Intent.ACTION_EDIT)
-                        .putExtra(Note.class.getName(), item.getNoteId())));
+                        .putExtra(Note.class.getName(), note.getNoteId())));
             binding.executePendingBindings();
         }
     }

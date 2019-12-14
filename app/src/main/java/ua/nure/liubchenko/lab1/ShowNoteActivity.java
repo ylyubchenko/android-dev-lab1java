@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class ShowNoteActivity extends AppCompatActivity {
         ActivityShowNoteBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_show_note);
 
-        int noteId = getIntent().getIntExtra(Note.class.getName(), -1);
+        long noteId = getIntent().getLongExtra(Note.class.getName(), -1);
 
         ShowNoteViewModelFactory factory =
                 InjectorUtils.provideNoteDetailsViewModelFactory(this, noteId);
@@ -54,7 +55,7 @@ public class ShowNoteActivity extends AppCompatActivity {
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
 
-                binding.image.setImageBitmap(bitmap);
+                binding.showImage.setImageBitmap(bitmap);
             }
 
         });

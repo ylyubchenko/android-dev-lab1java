@@ -20,7 +20,7 @@ public class InjectorUtils {
     }
 
     public static ShowNoteViewModelFactory provideNoteDetailsViewModelFactory(Context context,
-                                                                              int noteId) {
+                                                                              long noteId) {
         return new ShowNoteViewModelFactory(getNoteRepository(context), noteId);
     }
 

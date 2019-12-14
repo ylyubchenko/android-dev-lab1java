@@ -3,7 +3,6 @@ package ua.nure.liubchenko.lab1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -40,7 +39,10 @@ public class NoteListActivity extends AppCompatActivity {
 
         binding.notes.setAdapter(adapter);
 
-        viewModel.getAllNotes().observe(this, adapter::setNotes);
+        viewModel.getAllNotes().observe(this, notes -> {
+            adapter.setNotes(notes);
+            adapter.notifyDataSetChanged();
+        });
 
         binding.createNote.setOnClickListener(v -> {
             Intent intent = new Intent(this, CreateNoteActivity.class);

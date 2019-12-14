@@ -12,7 +12,7 @@ public class ShowNoteViewModel extends ViewModel {
 
     private LiveData<Note> note;
 
-    public ShowNoteViewModel(@NotNull NoteRepository repository, int noteId) {
+    public ShowNoteViewModel(@NotNull NoteRepository repository, long noteId) {
         this.note = repository.getNote(noteId);
     }
 
