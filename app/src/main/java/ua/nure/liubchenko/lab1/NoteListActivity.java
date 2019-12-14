@@ -1,17 +1,18 @@
 package ua.nure.liubchenko.lab1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
+import android.view.MenuItem;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import ua.nure.liubchenko.lab1.adapters.NoteAdapter;
 import ua.nure.liubchenko.lab1.databinding.ActivityNoteListBinding;
-import ua.nure.liubchenko.lab1.persistence.Note;
 import ua.nure.liubchenko.lab1.viewmodels.NoteListViewModel;
 import ua.nure.liubchenko.lab1.viewmodels.NoteListViewModelFactory;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
@@ -28,6 +29,12 @@ public class NoteListActivity extends AppCompatActivity {
                 DataBindingUtil.setContentView(this, R.layout.activity_note_list);
 
         binding.toolbar.inflateMenu(R.menu.menu_main);
+
+        binding.toolbar.setOnMenuItemClickListener(item -> {
+            Log.d(TAG, item.toString());
+            FilterDialog.show(getSupportFragmentManager());
+            return true;
+        });
 
         NoteListViewModelFactory factory =
                 InjectorUtils.provideNoteListViewModelFactory(this);
@@ -48,13 +55,5 @@ public class NoteListActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CreateNoteActivity.class);
             this.startActivity(intent);
         });
-    }
-
-    public void removeNote(View view, Note note) {
-        new MaterialAlertDialogBuilder(this)
-                .setTitle("Title")
-                .setMessage("Message")
-                .setPositiveButton("Ok", null)
-                .show();
     }
 }

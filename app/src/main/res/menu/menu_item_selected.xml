@@ -9,4 +9,5 @@
         app:showAsAction="always"
         app:iconTint="@android:color/white"
         android:title="@string/menu_item_delete" />
+
 </menu>

@@ -13,4 +13,6 @@
     <string name="attached_image">Attached image</string>
     <string name="menu_item_filter">Filter</string>
     <string name="menu_item_delete">Delete</string>
+    <string name="filter_save">apply</string>
+    <string name="filtering_toolbar_title">Filtering</string>
 </resources>
