@@ -1,8 +1,5 @@
 package ua.nure.liubchenko.lab1.viewmodels;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Picture;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -15,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Optional;
 
-import ua.nure.liubchenko.lab1.R;
 import ua.nure.liubchenko.lab1.persistence.Note;
 import ua.nure.liubchenko.lab1.persistence.NoteRepository;
 
@@ -36,26 +33,17 @@ public class CreateNoteViewModel extends ViewModel {
             new MutableLiveData<>(Note.Importance.NORMAL);
 
     private MutableLiveData<Long> date =
-            new MutableLiveData<>(0L);
+            new MutableLiveData<>();
 
     private MutableLiveData<File> image =
-            new MutableLiveData<>(null);
+            new MutableLiveData<>();
 
     private LiveData<String> importanceText = Transformations.map(importance, Enum::name);
 
     private LiveData<String> dateText = Transformations.map(date, d ->
             d == 0 ? "" : DateFormat.getDateInstance(DateFormat.SHORT).format(new Date(d)));
 
-//    private LiveData<String> imagePath = Transformations.map(image, File::getAbsolutePath);
-//
-//    private LiveData<Bitmap> imageBitmap = Transformations.map(image, f -> {
-//        if (f == null) return Bitmap.createBitmap(new Picture());
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//        return BitmapFactory.decodeFile(f.getAbsolutePath(), options);
-//    });
-
-    public CreateNoteViewModel(@NotNull NoteRepository repository) {
+    CreateNoteViewModel(@NotNull NoteRepository repository) {
         this.repository = repository;
     }
 
@@ -79,14 +67,6 @@ public class CreateNoteViewModel extends ViewModel {
         return image;
     }
 
-//    public LiveData<String> getImagePath() {
-//        return imagePath;
-//    }
-//
-//    public LiveData<Bitmap> getImageBitmap() {
-//        return imageBitmap;
-//    }
-
     public void setTitle(String title) {
         this.title.setValue(title);
     }
@@ -109,8 +89,12 @@ public class CreateNoteViewModel extends ViewModel {
     }
 
     public void save() {
-        Note note = new Note(0, title.getValue(), description.getValue(), date.getValue(),
-                importance.getValue(), image.getValue().getAbsolutePath());
+        long dateLong = Optional.ofNullable(date.getValue())
+                .orElse(new Date().getTime());
+        String imagePath = Optional.ofNullable(image.getValue()).map(File::getAbsolutePath)
+                .orElse("");
+        Note note = new Note(0, title.getValue(), description.getValue(), dateLong,
+                importance.getValue(), imagePath);
         Log.d(TAG, String.format("Saving: %s", note.toString()));
         repository.insert(note);
     }

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -51,13 +50,14 @@ public class ShowNoteActivity extends AppCompatActivity {
             if (note != null) {
                 Log.d(TAG, note.toString());
 
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
+                if (note.getImagePath().length() > 0) {
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                    Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
 
-                binding.showImage.setImageBitmap(bitmap);
+                    binding.showImage.setImageBitmap(bitmap);
+                }
             }
-
         });
 //
 //        List<String> priorities = Stream.of(Importance.values())

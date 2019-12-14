@@ -86,12 +86,8 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         binding.date.setOnTouchListener((View v, MotionEvent e) -> {
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
-
-                MaterialDatePicker<Long> picker = builder.build();
-
+                MaterialDatePicker<Long> picker = MaterialDatePicker.Builder.datePicker().build();
                 picker.show(getSupportFragmentManager(), picker.toString());
-
                 picker.addOnPositiveButtonClickListener(viewModel::setDate);
             }
 
@@ -125,7 +121,6 @@ public class CreateNoteActivity extends AppCompatActivity {
 
                 binding.imageView.setImageBitmap(bitmap);
                 binding.image.setText(path);
-                ///binding.imageView.setMaxHeight(bitmap.);
             }
         });
 
