@@ -37,6 +37,7 @@ public class CreateNoteViewModel extends ViewModel {
     private MutableLiveData<File> image =
             new MutableLiveData<>();
 
+    // TODO - handle importance typed by hand
     private LiveData<String> importanceText = Transformations.map(importance, Note.Importance::name);
 
     private LiveData<String> dateText = Transformations.map(date, d ->

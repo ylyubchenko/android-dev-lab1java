@@ -8,7 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.List;
+
 import ua.nure.liubchenko.lab1.adapters.NoteAdapter;
+import ua.nure.liubchenko.lab1.data.Filter;
+import ua.nure.liubchenko.lab1.data.Note;
 import ua.nure.liubchenko.lab1.databinding.ActivityNoteListBinding;
 import ua.nure.liubchenko.lab1.viewmodels.NoteListViewModel;
 import ua.nure.liubchenko.lab1.viewmodels.NoteListViewModelFactory;
@@ -17,6 +21,10 @@ import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 public class NoteListActivity extends AppCompatActivity {
 
     private static String TAG = NoteListActivity.class.getSimpleName();
+
+    private NoteAdapter noteAdapter;
+
+    private NoteListViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,28 +37,36 @@ public class NoteListActivity extends AppCompatActivity {
 
         binding.toolbar.setOnMenuItemClickListener(item -> {
             Log.d(TAG, item.toString());
-            FilterDialog.withApplyHandler(filter -> {}).show(getSupportFragmentManager());
+            FilterDialog
+                    .withApplicationHandler(this::filterHandler)
+                    .show(getSupportFragmentManager());
             return true;
         });
 
         NoteListViewModelFactory factory =
                 InjectorUtils.provideNoteListViewModelFactory(this);
 
-        NoteListViewModel viewModel =
-                new ViewModelProvider(this, factory).get(NoteListViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(NoteListViewModel.class);
 
-        NoteAdapter adapter = new NoteAdapter(this);
+        noteAdapter = new NoteAdapter(this);
 
-        binding.notes.setAdapter(adapter);
+        binding.notes.setAdapter(noteAdapter);
 
         viewModel.getAllNotes().observe(this, notes -> {
-            adapter.setNotes(notes);
-            adapter.notifyDataSetChanged();
+            noteAdapter.setNotes(notes);
+            noteAdapter.notifyDataSetChanged();
         });
 
         binding.createNote.setOnClickListener(v -> {
             Intent intent = new Intent(this, CreateNoteActivity.class);
             this.startActivity(intent);
         });
+    }
+
+    private void filterHandler(Filter filter) {
+        Log.d(TAG, "filterHandler");
+        List<Note> notes = viewModel.getAllNotes().getValue();
+        noteAdapter.setNotes(filter.apply(notes));
+        noteAdapter.notifyDataSetChanged();
     }
 }

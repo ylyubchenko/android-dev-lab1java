@@ -24,7 +24,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/white"
-                app:navigationIcon="@drawable/ic_close_black_24dp" />
+                android:paddingEnd="8dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:navigationIcon="@drawable/ic_close_black_24dp"
+                tools:ignore="RtlSymmetry" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -47,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/title_filter"
+                    android:id="@+id/filter_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="18sp"
@@ -67,7 +70,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/filter_title_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/desc_filter"
+                    android:id="@+id/filter_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
@@ -89,7 +92,7 @@
                 app:startIconDrawable="@drawable/ic_star_24dp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/importance_filter"
+                    android:id="@+id/filter_importance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
@@ -97,6 +100,17 @@
                     android:text="@{viewModel.importance}" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clear_filter"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/filter_clear"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/filter_importance_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

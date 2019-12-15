@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 
 public class Filter {
 
@@ -15,11 +15,11 @@ public class Filter {
 
     private String description;
 
-    private long date;
+    private Long date;
 
     private Note.Importance importance;
 
-    public Filter(String title, String description, long date, Note.Importance importance) {
+    public Filter(String title, String description, Long date, Note.Importance importance) {
         this.title = title;
         this.description = description;
         this.date = date;
@@ -34,7 +34,7 @@ public class Filter {
         return description;
     }
 
-    public long getDate() {
+    public Long getDate() {
         return date;
     }
 
@@ -42,12 +42,18 @@ public class Filter {
         return importance;
     }
 
+    public List<Note> apply(List<Note> notes) {
+        return notes;
+    }
+
     @NonNull
     @Override
     public String toString() {
         String str = "Note { title = %s, desc = %s, importance = %s, date = %s }";
-        String dateFormatted = DATE_FORMAT.format(new Date(date));
-        String importanceFormatted = Optional.ofNullable(importance).map(Note.Importance::name).orElse("");
-        return String.format(str, title, description, importanceFormatted, dateFormatted);
+        String titleString = title != null ? title : "";
+        String descriptionString = description != null ? description : "";
+        String dateString = date != null ? DATE_FORMAT.format(new Date(date)) : "";
+        String importanceString = importance != null ? importance.name() : "";
+        return String.format(str, titleString, descriptionString, importanceString, dateString);
     }
 }

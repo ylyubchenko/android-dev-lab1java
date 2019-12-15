@@ -15,4 +15,5 @@
     <string name="menu_item_delete">Delete</string>
     <string name="filter_save">apply</string>
     <string name="filtering_toolbar_title">Filtering</string>
+    <string name="filter_clear">clear</string>
 </resources>

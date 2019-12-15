@@ -44,7 +44,7 @@ public class FilterDialog extends DialogFragment {
 
     private Consumer<Filter> filterConsumer;
 
-    static FilterDialog withApplyHandler(Consumer<Filter> filterConsumer) {
+    static FilterDialog withApplicationHandler(Consumer<Filter> filterConsumer) {
         FilterDialog filterDialog = new FilterDialog();
         filterDialog.filterConsumer = filterConsumer;
         return filterDialog;
@@ -82,7 +82,10 @@ public class FilterDialog extends DialogFragment {
         FilterViewModelFactory factory =
                 InjectorUtils.provideFilterViewModelFactory(getContext());
 
-        viewModel = new ViewModelProvider(getActivity(), factory).get(FilterViewModel.class);
+        viewModel = new ViewModelProvider(Objects.requireNonNull(getActivity()), factory)
+                .get(FilterViewModel.class);
+
+        binding.setLifecycleOwner(getViewLifecycleOwner());
 
         binding.setViewModel(viewModel);
 
@@ -113,13 +116,17 @@ public class FilterDialog extends DialogFragment {
                         R.layout.dropdown_menu_popup_item,
                         priorities);
 
-        binding.importanceFilter.setAdapter(adapter);
+        binding.filterImportance.setAdapter(adapter);
 
-        binding.titleFilter.addTextChangedListener(provideTextWatcher(viewModel::setTitle));
+        binding.filterTitle.addTextChangedListener(provideTextWatcher(viewModel::setTitle));
 
-        binding.descFilter.addTextChangedListener(provideTextWatcher(viewModel::setDescription));
+        binding.filterDesc.addTextChangedListener(provideTextWatcher(viewModel::setDescription));
 
-        binding.importanceFilter.addTextChangedListener(provideTextWatcher(viewModel::setImportance));
+        binding.filterImportance.addTextChangedListener(provideTextWatcher(viewModel::setImportance));
+
+        binding.clearFilter.setOnClickListener(v -> {
+            viewModel.clearFilter();
+        });
 
         return binding.getRoot();
     }
