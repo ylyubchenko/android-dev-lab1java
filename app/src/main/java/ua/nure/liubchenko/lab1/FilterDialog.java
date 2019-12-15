@@ -3,25 +3,35 @@ package ua.nure.liubchenko.lab1;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import ua.nure.liubchenko.lab1.databinding.FilterFragmentBinding;
+import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 import ua.nure.liubchenko.lab1.viewmodels.FilterViewModel;
+import ua.nure.liubchenko.lab1.viewmodels.FilterViewModelFactory;
 
 public class FilterDialog extends DialogFragment {
 
     static final String TAG = FilterDialog.class.getSimpleName();
 
-    private FilterViewModel filterViewModel;
+    private FilterViewModel viewModel;
 
     private FilterFragmentBinding binding;
 
@@ -56,6 +66,28 @@ public class FilterDialog extends DialogFragment {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.filter_fragment, container, false);
 
+        FilterViewModelFactory factory =
+                InjectorUtils.provideFilterViewModelFactory(getContext());
+
+        viewModel = new ViewModelProvider(this, factory).get(FilterViewModel.class);
+
+        binding.getRoot().setOnTouchListener((View v, MotionEvent e) -> {
+            if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                v.clearFocus();
+                try {
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(),
+                            InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                } catch (NullPointerException ex) {
+                    ex.printStackTrace();
+                }
+                return false;
+            }
+            v.performClick();
+            return false;
+        });
+
         return binding.getRoot();
     }
 
@@ -69,5 +101,4 @@ public class FilterDialog extends DialogFragment {
             return true;
         });
     }
-
 }

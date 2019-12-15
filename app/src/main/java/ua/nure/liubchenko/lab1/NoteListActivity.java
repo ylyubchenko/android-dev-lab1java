@@ -1,15 +1,18 @@
 package ua.nure.liubchenko.lab1;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import ua.nure.liubchenko.lab1.adapters.NoteAdapter;
 import ua.nure.liubchenko.lab1.databinding.ActivityNoteListBinding;

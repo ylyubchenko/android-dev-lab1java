@@ -16,7 +16,7 @@ import ua.nure.liubchenko.lab1.utils.NoteTypeConverters;
 @Entity(tableName = "notes")
 public class Note {
 
-    private static DateFormat DATE_FORMAT =
+    public static DateFormat DATE_FORMAT =
             DateFormat.getDateInstance(DateFormat.SHORT);
 
     @PrimaryKey(autoGenerate = true)

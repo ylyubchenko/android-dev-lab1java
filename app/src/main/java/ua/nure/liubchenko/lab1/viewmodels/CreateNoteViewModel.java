@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.Optional;
 
@@ -41,7 +40,7 @@ public class CreateNoteViewModel extends ViewModel {
     private LiveData<String> importanceText = Transformations.map(importance, Enum::name);
 
     private LiveData<String> dateText = Transformations.map(date, d ->
-            d == 0 ? "" : DateFormat.getDateInstance(DateFormat.SHORT).format(new Date(d)));
+            d == null ? "" : Note.DATE_FORMAT.format(new Date(d)));
 
     CreateNoteViewModel(@NotNull NoteRepository repository) {
         this.repository = repository;
