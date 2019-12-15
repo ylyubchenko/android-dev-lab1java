@@ -66,7 +66,11 @@ public class NoteListActivity extends AppCompatActivity {
     private void filterHandler(Filter filter) {
         Log.d(TAG, "filterHandler");
         List<Note> notes = viewModel.getAllNotes().getValue();
-        noteAdapter.setNotes(filter.apply(notes));
-        noteAdapter.notifyDataSetChanged();
+
+        if (notes != null) {
+            List<Note> filteredNotes = filter.apply(notes);
+            noteAdapter.setNotes(filteredNotes);
+            noteAdapter.notifyDataSetChanged();
+        }
     }
 }

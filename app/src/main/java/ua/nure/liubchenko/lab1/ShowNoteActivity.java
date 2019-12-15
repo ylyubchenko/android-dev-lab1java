@@ -43,7 +43,7 @@ public class ShowNoteActivity extends AppCompatActivity {
             if (note != null) {
                 Log.d(TAG, note.toString());
 
-                if (note.getImagePath().length() > 0) {
+                if (note.getImagePath() != null) {
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                     Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
