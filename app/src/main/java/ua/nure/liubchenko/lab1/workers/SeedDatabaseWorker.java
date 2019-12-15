@@ -17,8 +17,8 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import ua.nure.liubchenko.lab1.persistence.Note;
-import ua.nure.liubchenko.lab1.persistence.NoteDatabase;
+import ua.nure.liubchenko.lab1.data.Note;
+import ua.nure.liubchenko.lab1.data.NoteDatabase;
 
 import static ua.nure.liubchenko.lab1.utils.Constants.NOTE_DATA_FILENAME;
 

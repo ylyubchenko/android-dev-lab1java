@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import ua.nure.liubchenko.lab1.persistence.Note;
-import ua.nure.liubchenko.lab1.persistence.NoteRepository;
+import ua.nure.liubchenko.lab1.data.Note;
+import ua.nure.liubchenko.lab1.data.NoteRepository;
 
 public class NoteListViewModel extends ViewModel {
 

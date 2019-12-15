@@ -13,8 +13,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.Optional;
 
-import ua.nure.liubchenko.lab1.persistence.Note;
-import ua.nure.liubchenko.lab1.persistence.NoteRepository;
+import ua.nure.liubchenko.lab1.data.Note;
+import ua.nure.liubchenko.lab1.data.NoteRepository;
 
 public class CreateNoteViewModel extends ViewModel {
 
@@ -37,7 +37,7 @@ public class CreateNoteViewModel extends ViewModel {
     private MutableLiveData<File> image =
             new MutableLiveData<>();
 
-    private LiveData<String> importanceText = Transformations.map(importance, Enum::name);
+    private LiveData<String> importanceText = Transformations.map(importance, Note.Importance::name);
 
     private LiveData<String> dateText = Transformations.map(date, d ->
             d == null ? "" : Note.DATE_FORMAT.format(new Date(d)));

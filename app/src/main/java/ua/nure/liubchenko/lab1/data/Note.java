@@ -1,4 +1,4 @@
-package ua.nure.liubchenko.lab1.persistence;
+package ua.nure.liubchenko.lab1.data;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import ua.nure.liubchenko.lab1.persistence.NoteRepository;
+import ua.nure.liubchenko.lab1.data.NoteRepository;
 
 public class ShowNoteViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 

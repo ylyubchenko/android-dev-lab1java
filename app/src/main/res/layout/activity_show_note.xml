@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="ua.nure.liubchenko.lab1.persistence.Note" />
+        <import type="ua.nure.liubchenko.lab1.data.Note" />
         <variable
             name="viewModel"
             type="ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModel" />

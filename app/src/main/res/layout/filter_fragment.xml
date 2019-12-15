@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="ua.nure.liubchenko.lab1.viewmodels.FilterViewModel" />
+    </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -40,10 +47,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filter_title"
+                    android:id="@+id/title_filter"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:text="@{viewModel.title}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,15 +67,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/filter_title_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filter_desc"
+                    android:id="@+id/desc_filter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:text="@{viewModel.description}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/importance_layout"
+                android:id="@+id/filter_importance_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,11 +89,12 @@
                 app:startIconDrawable="@drawable/ic_star_24dp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/importance"
+                    android:id="@+id/importance_filter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    android:text="@{viewModel.importance}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

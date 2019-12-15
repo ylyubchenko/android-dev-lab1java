@@ -1,4 +1,4 @@
-package ua.nure.liubchenko.lab1.persistence;
+package ua.nure.liubchenko.lab1.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

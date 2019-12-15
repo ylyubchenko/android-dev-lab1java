@@ -7,38 +7,51 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
 
-import org.jetbrains.annotations.NotNull;
+import androidx.annotation.NonNull;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import ua.nure.liubchenko.lab1.data.Filter;
 import ua.nure.liubchenko.lab1.databinding.FilterFragmentBinding;
+import ua.nure.liubchenko.lab1.data.Note;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 import ua.nure.liubchenko.lab1.viewmodels.FilterViewModel;
 import ua.nure.liubchenko.lab1.viewmodels.FilterViewModelFactory;
 
 public class FilterDialog extends DialogFragment {
 
-    static final String TAG = FilterDialog.class.getSimpleName();
+    private static final String TAG = FilterDialog.class.getSimpleName();
 
     private FilterViewModel viewModel;
 
     private FilterFragmentBinding binding;
 
-    static FilterDialog show(FragmentManager fragmentManager) {
-        FilterDialog exampleDialog = new FilterDialog();
-        exampleDialog.show(fragmentManager, TAG);
-        return exampleDialog;
+    private Consumer<Filter> filterConsumer;
+
+    static FilterDialog withApplyHandler(Consumer<Filter> filterConsumer) {
+        FilterDialog filterDialog = new FilterDialog();
+        filterDialog.filterConsumer = filterConsumer;
+        return filterDialog;
+    }
+
+    void show(FragmentManager fragmentManager) {
+        show(fragmentManager, TAG);
     }
 
     @Override
@@ -60,7 +73,7 @@ public class FilterDialog extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(
@@ -69,15 +82,17 @@ public class FilterDialog extends DialogFragment {
         FilterViewModelFactory factory =
                 InjectorUtils.provideFilterViewModelFactory(getContext());
 
-        viewModel = new ViewModelProvider(this, factory).get(FilterViewModel.class);
+        viewModel = new ViewModelProvider(getActivity(), factory).get(FilterViewModel.class);
+
+        binding.setViewModel(viewModel);
 
         binding.getRoot().setOnTouchListener((View v, MotionEvent e) -> {
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
                 v.clearFocus();
                 try {
-                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(
-                            Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(),
+                    InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getContext())
+                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+                    Objects.requireNonNull(imm).hideSoftInputFromWindow(v.getWindowToken(),
                             InputMethodManager.RESULT_UNCHANGED_SHOWN);
                 } catch (NullPointerException ex) {
                     ex.printStackTrace();
@@ -88,17 +103,53 @@ public class FilterDialog extends DialogFragment {
             return false;
         });
 
+        List<String> priorities = Stream.of(Note.Importance.values())
+                .map(Note.Importance::name)
+                .collect(Collectors.toList());
+
+        ArrayAdapter adapter =
+                new ArrayAdapter<>(
+                        Objects.requireNonNull(getContext()),
+                        R.layout.dropdown_menu_popup_item,
+                        priorities);
+
+        binding.importanceFilter.setAdapter(adapter);
+
+        binding.titleFilter.addTextChangedListener(provideTextWatcher(viewModel::setTitle));
+
+        binding.descFilter.addTextChangedListener(provideTextWatcher(viewModel::setDescription));
+
+        binding.importanceFilter.addTextChangedListener(provideTextWatcher(viewModel::setImportance));
+
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         binding.filterToolbar.inflateMenu(R.menu.menu_filter);
         binding.filterToolbar.setNavigationOnClickListener(v -> dismiss());
         binding.filterToolbar.setOnMenuItemClickListener(item -> {
             Log.d(TAG, item.toString());
+            filterConsumer.accept(viewModel.getFilter());
             dismiss();
             return true;
         });
+    }
+
+    private TextWatcher provideTextWatcher(Consumer<String> setter) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setter.accept(String.valueOf(s));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        };
     }
 }

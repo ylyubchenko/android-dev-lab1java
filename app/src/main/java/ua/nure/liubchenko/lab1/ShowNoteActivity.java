@@ -8,20 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-
-import java.io.File;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import ua.nure.liubchenko.lab1.databinding.ActivityShowNoteBinding;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 import ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModel;
 import ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModelFactory;
 
-import ua.nure.liubchenko.lab1.persistence.Note;
-import ua.nure.liubchenko.lab1.persistence.Note.Importance;
+import ua.nure.liubchenko.lab1.data.Note;
 
 public class ShowNoteActivity extends AppCompatActivity {
 

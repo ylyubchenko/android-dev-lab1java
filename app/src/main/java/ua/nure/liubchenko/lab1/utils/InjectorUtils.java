@@ -2,8 +2,8 @@ package ua.nure.liubchenko.lab1.utils;
 
 import android.content.Context;
 
-import ua.nure.liubchenko.lab1.persistence.NoteDatabase;
-import ua.nure.liubchenko.lab1.persistence.NoteRepository;
+import ua.nure.liubchenko.lab1.data.NoteDatabase;
+import ua.nure.liubchenko.lab1.data.NoteRepository;
 import ua.nure.liubchenko.lab1.viewmodels.CreateNoteViewModelFactory;
 import ua.nure.liubchenko.lab1.viewmodels.FilterViewModelFactory;
 import ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModelFactory;

@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import ua.nure.liubchenko.lab1.persistence.NoteRepository;
-import ua.nure.liubchenko.lab1.persistence.Note;
+import ua.nure.liubchenko.lab1.data.NoteRepository;
+import ua.nure.liubchenko.lab1.data.Note;
 
 public class ShowNoteViewModel extends ViewModel {
 

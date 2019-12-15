@@ -4,15 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
 import ua.nure.liubchenko.lab1.adapters.NoteAdapter;
 import ua.nure.liubchenko.lab1.databinding.ActivityNoteListBinding;
@@ -35,7 +29,7 @@ public class NoteListActivity extends AppCompatActivity {
 
         binding.toolbar.setOnMenuItemClickListener(item -> {
             Log.d(TAG, item.toString());
-            FilterDialog.show(getSupportFragmentManager());
+            FilterDialog.withApplyHandler(filter -> {}).show(getSupportFragmentManager());
             return true;
         });
 
