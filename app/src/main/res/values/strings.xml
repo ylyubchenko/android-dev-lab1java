@@ -16,4 +16,5 @@
     <string name="filter_save">apply</string>
     <string name="filtering_toolbar_title">Filtering</string>
     <string name="filter_clear">clear</string>
+    <string name="create_note_title">Create note</string>
 </resources>

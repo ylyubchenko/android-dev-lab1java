@@ -53,7 +53,8 @@ public class Filter {
     }
 
     @SuppressWarnings("Convert2Lambda")
-    private Predicate<Note> getFieldPredicate(Supplier<String> thisField, Function<Note, String> compField) {
+    private Predicate<Note> getFieldPredicate(Supplier<String> thisField,
+                                              Function<Note, String> compField) {
         return new Predicate<Note>() {
             @Override
             public boolean test(Note note) {
@@ -69,8 +70,12 @@ public class Filter {
         Function<Note, String> importanceSelector = ((Function<Note, Note.Importance>)
                 (Note::getImportance)).andThen(Note.Importance::name);
 
-        Predicate<Note> titlePredicate = getFieldPredicate(this::getTitle, Note::getTitle);
-        Predicate<Note> descriptionPredicate = getFieldPredicate(this::getDescription, Note::getDescription);
+        Predicate<Note> titlePredicate =
+                getFieldPredicate(this::getTitle, Note::getTitle);
+
+        Predicate<Note> descriptionPredicate =
+                getFieldPredicate(this::getDescription, Note::getDescription);
+
         Predicate<Note> importancePredicate = importance != null
                 ? getFieldPredicate(importance::name, importanceSelector)
                 : note -> true;

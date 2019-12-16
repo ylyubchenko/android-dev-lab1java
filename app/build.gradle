@@ -46,7 +46,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:$recyclerViewSelectionVersion"
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.work:work-runtime:$workVersion"
-    implementation "com.github.esafirm.android-image-picker:imagepicker:$imagePicker"
+    //implementation "com.github.esafirm.android-image-picker:imagepicker:$imagePicker"
     implementation 'com.github.dhaval2404:imagepicker:1.5'
     implementation "com.google.android:flexbox:$flexboxVersion"
     implementation "com.google.android.material:material:$materialVersion"

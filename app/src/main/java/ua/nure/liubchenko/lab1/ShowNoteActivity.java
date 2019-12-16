@@ -44,9 +44,12 @@ public class ShowNoteActivity extends AppCompatActivity {
                 Log.d(TAG, note.toString());
 
                 if (note.getImagePath() != null) {
+                    Log.d(TAG, String.format("getNote: imagePath = %s", note.getImagePath()));
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                     Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
+
+                    Log.d(TAG, String.format("getNote: image dim = %d x %d", bitmap.getWidth(), bitmap.getHeight()));
 
                     binding.showImage.setImageBitmap(bitmap);
                 }

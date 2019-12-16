@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import ua.nure.liubchenko.lab1.data.Note;
 import ua.nure.liubchenko.lab1.data.NoteRepository;
@@ -34,11 +35,11 @@ public class CreateNoteViewModel extends ViewModel {
     private MutableLiveData<Long> date =
             new MutableLiveData<>();
 
-    private MutableLiveData<File> image =
+    private MutableLiveData<String> imagePath =
             new MutableLiveData<>();
 
-    // TODO - handle importance typed by hand
-    private LiveData<String> importanceText = Transformations.map(importance, Note.Importance::name);
+    private LiveData<String> importanceText = Transformations.map(importance, importance ->
+            importance != null ? importance.name() : "");
 
     private LiveData<String> dateText = Transformations.map(date, d ->
             d == null ? "" : Note.DATE_FORMAT.format(new Date(d)));
@@ -63,8 +64,8 @@ public class CreateNoteViewModel extends ViewModel {
         return dateText;
     }
 
-    public LiveData<File> getImage() {
-        return image;
+    public LiveData<String> getImagePath() {
+        return imagePath;
     }
 
     public void setTitle(String title) {
@@ -76,26 +77,39 @@ public class CreateNoteViewModel extends ViewModel {
     }
 
     public void setImportance(String importance) {
-        this.importance.setValue(
-                Note.Importance.valueOf(importance.toUpperCase()));
+        boolean contains = Stream.of(Note.Importance.values())
+                .map(Note.Importance::name)
+                .anyMatch(im -> im.equalsIgnoreCase(importance));
+
+        Log.d(TAG, String.format("setImportance: importance = %s, contains = %b", importance, contains));
+
+        if (contains) {
+            this.importance.setValue(Note.Importance.valueOf(importance.toUpperCase()));
+        } else {
+            this.importance.setValue(null);
+        }
     }
 
     public void setDate(Long date) {
         this.date.setValue(date);
     }
 
-    public void setImage(File image) {
-        this.image.setValue(image);
+    public void setImagePath(String imagePath) {
+        this.imagePath.setValue(imagePath);
     }
 
     public void save() {
-        long dateLong = Optional.ofNullable(date.getValue())
-                .orElse(new Date().getTime());
-        String imagePath = Optional.ofNullable(image.getValue()).map(File::getAbsolutePath)
-                .orElse("");
-        Note note = new Note(0, title.getValue(), description.getValue(), dateLong,
-                importance.getValue(), imagePath);
+        long dateLong = Optional.ofNullable(date.getValue()).orElse(new Date().getTime());
+
+        Note note = new Note(0,
+                title.getValue(),
+                description.getValue(),
+                dateLong,
+                importance.getValue(),
+                imagePath.getValue());
+
         Log.d(TAG, String.format("Saving: %s", note.toString()));
+
         repository.insert(note);
     }
 }

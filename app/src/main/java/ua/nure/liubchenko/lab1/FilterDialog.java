@@ -124,9 +124,7 @@ public class FilterDialog extends DialogFragment {
 
         binding.filterImportance.addTextChangedListener(provideTextWatcher(viewModel::setImportance));
 
-        binding.clearFilter.setOnClickListener(v -> {
-            viewModel.clearFilter();
-        });
+        binding.clearFilter.setOnClickListener(v -> viewModel.clearFilter());
 
         return binding.getRoot();
     }
@@ -136,7 +134,6 @@ public class FilterDialog extends DialogFragment {
         binding.filterToolbar.inflateMenu(R.menu.menu_filter);
         binding.filterToolbar.setNavigationOnClickListener(v -> dismiss());
         binding.filterToolbar.setOnMenuItemClickListener(item -> {
-            Log.d(TAG, item.toString());
             filterConsumer.accept(viewModel.getFilter());
             dismiss();
             return true;

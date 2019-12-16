@@ -2,18 +2,16 @@ package ua.nure.liubchenko.lab1;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -46,10 +44,6 @@ public class CreateNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_note);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
-        toolbar.inflateMenu(R.menu.menu_main);
 
         CreateNoteViewModelFactory factory =
                 InjectorUtils.provideCreateNoteViewModelFactory(this);
@@ -85,8 +79,6 @@ public class CreateNoteActivity extends AppCompatActivity {
         binding.image.setOnTouchListener((View v, MotionEvent e) -> {
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
                 ImagePicker.Companion.with(this)
-                        .compress(1024)
-                        .maxResultSize(512, 512)
                         .start();
             }
 
@@ -99,19 +91,6 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         binding.importance.addTextChangedListener(provideTextWatcher(viewModel::setImportance));
 
-        viewModel.getImage().observe(this, i -> {
-            if (i != null) {
-                String path = i.getAbsolutePath();
-
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-
-                binding.imageView.setImageBitmap(bitmap);
-                binding.image.setText(path);
-            }
-        });
-
         binding.save.setOnClickListener(v -> {
             viewModel.save();
             finish();
@@ -120,12 +99,13 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == Activity.RESULT_OK) {
-            File image = ImagePicker.Companion.getFile(data);
-            viewModel.setImage(image);
+         if (resultCode == Activity.RESULT_OK) {
+            File file = ImagePicker.Companion.getFile(data);
+            Log.d(TAG, file.getAbsolutePath());
+            viewModel.setImagePath(file.getAbsolutePath());
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private TextWatcher provideTextWatcher(Consumer<String> setter) {

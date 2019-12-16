@@ -18,6 +18,17 @@
         android:padding="16dp"
         tools:context=".ShowNoteActivity">
 
+        <ImageView
+            android:id="@+id/show_image"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/attached_image"
+            android:src="@drawable/ic_photo_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/show_title"
             android:layout_width="match_parent"
@@ -68,16 +79,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/show_importance"
             tools:text="Date" />
-
-        <ImageView
-            android:id="@+id/show_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/attached_image"
-            android:src="@drawable/ic_photo_24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
