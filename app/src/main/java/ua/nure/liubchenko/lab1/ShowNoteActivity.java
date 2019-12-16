@@ -8,7 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import ua.nure.liubchenko.lab1.data.NoteRepository;
 import ua.nure.liubchenko.lab1.databinding.ActivityShowNoteBinding;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 import ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModel;
@@ -39,33 +45,42 @@ public class ShowNoteActivity extends AppCompatActivity {
 
         binding.setViewModel(viewModel);
 
-        viewModel.getNote().observe(this, note -> {
-            if (note != null) {
-                Log.d(TAG, note.toString());
+        NoteRepository noteRepository = InjectorUtils.getNoteRepository(this);
 
-                if (note.getImagePath() != null) {
-                    Log.d(TAG, String.format("getNote: imagePath = %s", note.getImagePath()));
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                    Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
+        noteRepository.getNote(noteId).observe(this, note -> {
+            viewModel.setTitle(note.getTitle());
+            viewModel.setDescription(note.getDescription());
+            viewModel.setImportance(note.getImportance().name());
+            viewModel.setImagePath(note.getImagePath());
 
-                    Log.d(TAG, String.format("getNote: image dim = %d x %d", bitmap.getWidth(), bitmap.getHeight()));
+            if (note.getImagePath() != null) {
+                Log.d(TAG, String.format("getNote: image path = %s", note.getImagePath()));
 
-                    binding.showImage.setImageBitmap(bitmap);
-                }
+                BitmapFactory.Options options = new BitmapFactory.Options() {{
+                    inPreferredConfig = Bitmap.Config.ARGB_8888;
+                }};
+
+                Bitmap bitmap = BitmapFactory.decodeFile(note.getImagePath(), options);
+
+                Log.d(TAG, String.format("getNote: image dimensions = %d x %d",
+                        bitmap.getWidth(), bitmap.getHeight()));
+
+                binding.showImage.setImageBitmap(bitmap);
             }
         });
-//
-//        List<String> priorities = Stream.of(Importance.values())
-//                .map(Importance::name)
-//                .collect(Collectors.toList());
-//
-//        ArrayAdapter adapter =
-//                new ArrayAdapter<>(
-//                        this,
-//                        R.layout.dropdown_menu_popup_item,
-//                        priorities);
-//
-//        binding.importance.setAdapter(adapter);
+
+        List<String> priorities = Stream.of(Note.Importance.values())
+                .map(Note.Importance::name)
+                .collect(Collectors.toList());
+
+        ArrayAdapter adapter =
+                new ArrayAdapter<>(
+                        this,
+                        R.layout.dropdown_menu_popup_item,
+                        priorities);
+
+        binding.importance.setAdapter(adapter);
+
+        binding.update.setOnClickListener(v -> viewModel.update());
     }
 }

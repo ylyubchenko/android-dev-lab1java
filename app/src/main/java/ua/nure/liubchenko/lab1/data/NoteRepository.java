@@ -1,12 +1,15 @@
 package ua.nure.liubchenko.lab1.data;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.*;
 
 public class NoteRepository {
+
+    private static String TAG = NoteRepository.class.getSimpleName();
 
     private NoteDao noteDao;
 
@@ -27,6 +30,10 @@ public class NoteRepository {
 
     public void insert(Note note) {
         new InsertAsyncTask(noteDao).execute(note);
+    }
+
+    public void update(Note note) {
+        new UpdateAsyncTask(noteDao).execute(note);
     }
 
     public void delete(Note note) {
@@ -55,6 +62,22 @@ public class NoteRepository {
         @Override
         protected Void doInBackground(final Note... notes) {
             noteDao.insert(notes[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateAsyncTask extends AsyncTask<Note, Void, Void> {
+
+        private NoteDao noteDao;
+
+        UpdateAsyncTask(NoteDao dao) {
+            noteDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Note... notes) {
+            int rows = noteDao.update(notes[0]);
+            Log.d(TAG, String.format("UpdateAsyncTask: rows = %d", rows));
             return null;
         }
     }

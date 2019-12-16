@@ -36,6 +36,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     private String TAG = CreateNoteActivity.class.getSimpleName();
 
     ActivityCreateNoteBinding binding;
+
     CreateNoteViewModel viewModel;
 
     @SuppressLint("ClickableViewAccessibility")

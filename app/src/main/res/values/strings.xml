@@ -17,4 +17,5 @@
     <string name="filtering_toolbar_title">Filtering</string>
     <string name="filter_clear">clear</string>
     <string name="create_note_title">Create note</string>
+    <string name="update">update</string>
 </resources>

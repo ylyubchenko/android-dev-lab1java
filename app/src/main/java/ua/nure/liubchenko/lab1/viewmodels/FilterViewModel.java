@@ -61,7 +61,8 @@ public class FilterViewModel extends ViewModel {
                 .map(Note.Importance::name)
                 .anyMatch(im -> im.equalsIgnoreCase(importance));
 
-        Log.d(TAG, String.format("setImportance: importance = %s, contains = %b", importance, contains));
+        Log.d(TAG, String.format("setImportance: importance = %s, contains = %b",
+                importance, contains));
 
         if (contains) {
             this.importance.setValue(Note.Importance.valueOf(importance.toUpperCase()));
