@@ -48,7 +48,7 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@{viewModel.note.title}"
+                    android:text="@{viewModel.title}"
                     android:textSize="18sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -68,7 +68,7 @@
                     android:id="@+id/desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.note.description}"
+                    android:text="@{viewModel.description}"
                     android:textSize="18sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     tools:ignore="LabelFor"
-                    android:text="@{viewModel.note.importance.name()}" />
+                    android:text="@{viewModel.importance}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:textSize="18sp"
-                    android:text="@{viewModel.note.dateAsString}" />
+                    android:text="@{viewModel.date}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:textSize="18sp"
-                    android:text="@{viewModel.note.imagePath}" />
+                    android:text="@{viewModel.imagePath}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

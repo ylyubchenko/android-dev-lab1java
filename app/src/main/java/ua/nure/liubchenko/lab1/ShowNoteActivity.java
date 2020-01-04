@@ -1,16 +1,29 @@
 package ua.nure.liubchenko.lab1;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ArrayAdapter;
 
+import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.material.datepicker.MaterialDatePicker;
+
+import java.io.File;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,6 +39,9 @@ public class ShowNoteActivity extends AppCompatActivity {
 
     private String TAG = ShowNoteActivity.class.getSimpleName();
 
+    private ShowNoteViewModel viewModel;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +54,7 @@ public class ShowNoteActivity extends AppCompatActivity {
         ShowNoteViewModelFactory factory =
                 InjectorUtils.provideNoteDetailsViewModelFactory(this, noteId);
 
-        ShowNoteViewModel viewModel =
-                new ViewModelProvider(this, factory).get(ShowNoteViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(ShowNoteViewModel.class);
 
         binding.setLifecycleOwner(this);
 
@@ -51,6 +66,7 @@ public class ShowNoteActivity extends AppCompatActivity {
             viewModel.setTitle(note.getTitle());
             viewModel.setDescription(note.getDescription());
             viewModel.setImportance(note.getImportance().name());
+            viewModel.setDate(note.getDate());
             viewModel.setImagePath(note.getImagePath());
 
             if (note.getImagePath() != null) {
@@ -81,6 +97,62 @@ public class ShowNoteActivity extends AppCompatActivity {
 
         binding.importance.setAdapter(adapter);
 
-        binding.update.setOnClickListener(v -> viewModel.update());
+        binding.date.setOnTouchListener((View v, MotionEvent e) -> {
+            if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                MaterialDatePicker<Long> picker = MaterialDatePicker.Builder.datePicker().build();
+                picker.show(getSupportFragmentManager(), picker.toString());
+                picker.addOnPositiveButtonClickListener(viewModel::setDate);
+            }
+
+            return true;
+        });
+
+        binding.image.setOnTouchListener((View v, MotionEvent e) -> {
+            if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                ImagePicker.Companion.with(this)
+                        .start();
+            }
+
+            return true;
+        });
+
+        binding.title.addTextChangedListener(provideTextWatcher(viewModel::setTitle));
+
+        binding.desc.addTextChangedListener(provideTextWatcher(viewModel::setDescription));
+
+        binding.importance.addTextChangedListener(provideTextWatcher(viewModel::setImportance));
+
+        binding.update.setOnClickListener(v -> {
+            viewModel.update();
+            finish();
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            File file = ImagePicker.Companion.getFile(data);
+            Log.d(TAG, file.getAbsolutePath());
+            viewModel.setImagePath(file.getAbsolutePath());
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private TextWatcher provideTextWatcher(Consumer<String> setter) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setter.accept(String.valueOf(s));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        };
     }
 }

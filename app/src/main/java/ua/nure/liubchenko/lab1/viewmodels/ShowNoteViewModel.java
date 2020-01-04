@@ -24,7 +24,8 @@ public class ShowNoteViewModel extends ViewModel {
 
     private long noteId;
 
-    private MutableLiveData<String> title;
+    private MutableLiveData<String> title =
+            new MutableLiveData<>("");
 
     private MutableLiveData<String> description=
             new MutableLiveData<>("");
