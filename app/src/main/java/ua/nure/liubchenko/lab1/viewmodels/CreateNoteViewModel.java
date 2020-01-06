@@ -9,19 +9,18 @@ import androidx.lifecycle.ViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.Date;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import ua.nure.liubchenko.lab1.data.Note;
-import ua.nure.liubchenko.lab1.data.NoteRepository;
+import ua.nure.liubchenko.lab1.data.NoteDbRepository;
 
 public class CreateNoteViewModel extends ViewModel {
 
     private static String TAG = CreateNoteViewModel.class.getSimpleName();
 
-    private NoteRepository repository;
+    private NoteDbRepository repository;
 
     private MutableLiveData<String> title =
             new MutableLiveData<>("");
@@ -44,7 +43,7 @@ public class CreateNoteViewModel extends ViewModel {
     private LiveData<String> dateText = Transformations.map(date, d ->
             d == null ? "" : Note.DATE_FORMAT.format(new Date(d)));
 
-    CreateNoteViewModel(@NotNull NoteRepository repository) {
+    CreateNoteViewModel(@NotNull NoteDbRepository repository) {
         this.repository = repository;
     }
 

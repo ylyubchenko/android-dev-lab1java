@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import ua.nure.liubchenko.lab1.data.NoteRepository;
+import ua.nure.liubchenko.lab1.data.NoteDbRepository;
 
 public class CreateNoteViewModelFactory extends ViewModelProvider.NewInstanceFactory  {
 
-    private NoteRepository repository;
+    private NoteDbRepository repository;
 
-    public CreateNoteViewModelFactory(NoteRepository repository) {
+    public CreateNoteViewModelFactory(NoteDbRepository repository) {
         this.repository = repository;
     }
 

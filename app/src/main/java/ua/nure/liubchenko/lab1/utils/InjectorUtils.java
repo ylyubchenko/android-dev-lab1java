@@ -3,7 +3,7 @@ package ua.nure.liubchenko.lab1.utils;
 import android.content.Context;
 
 import ua.nure.liubchenko.lab1.data.NoteDatabase;
-import ua.nure.liubchenko.lab1.data.NoteRepository;
+import ua.nure.liubchenko.lab1.data.NoteDbRepository;
 import ua.nure.liubchenko.lab1.viewmodels.CreateNoteViewModelFactory;
 import ua.nure.liubchenko.lab1.viewmodels.FilterViewModelFactory;
 import ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModelFactory;
@@ -11,8 +11,8 @@ import ua.nure.liubchenko.lab1.viewmodels.NoteListViewModelFactory;
 
 public class InjectorUtils {
 
-    public static NoteRepository getNoteRepository(Context context) {
-        return NoteRepository.getInstance(
+    public static NoteDbRepository getNoteRepository(Context context) {
+        return NoteDbRepository.getInstance(
                 NoteDatabase.getDatabase(context.getApplicationContext()).noteDao());
     }
 

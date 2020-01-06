@@ -16,7 +16,7 @@ import ua.nure.liubchenko.lab1.workers.SeedDatabaseWorker;
 @Database(entities = {Note.class}, version = 1, exportSchema = false)
 public abstract class NoteDatabase extends RoomDatabase {
 
-    public abstract NoteDao noteDao();
+    public abstract NoteDbDao noteDao();
 
     private static volatile NoteDatabase INSTANCE;
 

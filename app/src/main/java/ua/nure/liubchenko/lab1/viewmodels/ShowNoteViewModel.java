@@ -13,14 +13,14 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import ua.nure.liubchenko.lab1.data.NoteRepository;
+import ua.nure.liubchenko.lab1.data.NoteDbRepository;
 import ua.nure.liubchenko.lab1.data.Note;
 
 public class ShowNoteViewModel extends ViewModel {
 
     private static String TAG = ShowNoteViewModel.class.getSimpleName();
 
-    private NoteRepository repository;
+    private NoteDbRepository repository;
 
     private long noteId;
 
@@ -45,7 +45,7 @@ public class ShowNoteViewModel extends ViewModel {
     private LiveData<String> dateText = Transformations.map(date, d ->
             d == null ? "" : Note.DATE_FORMAT.format(new Date(d)));
 
-    ShowNoteViewModel(@NotNull NoteRepository repository, long noteId) {
+    ShowNoteViewModel(@NotNull NoteDbRepository repository, long noteId) {
         this.repository = repository;
         this.noteId = noteId;
     }
