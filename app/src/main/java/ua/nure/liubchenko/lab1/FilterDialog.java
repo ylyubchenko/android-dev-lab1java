@@ -79,7 +79,7 @@ public class FilterDialog extends DialogFragment {
                 inflater, R.layout.filter_fragment, container, false);
 
         FilterViewModelFactory factory =
-                InjectorUtils.provideFilterViewModelFactory(getContext());
+                InjectorUtils.provideFilterViewModelFactory();
 
         viewModel = new ViewModelProvider(Objects.requireNonNull(getActivity()), factory)
                 .get(FilterViewModel.class);

@@ -14,13 +14,13 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import ua.nure.liubchenko.lab1.data.models.Note;
-import ua.nure.liubchenko.lab1.data.repos.NoteDbRepository;
+import ua.nure.liubchenko.lab1.data.repos.NoteRepository;
 
 public class CreateNoteViewModel extends ViewModel {
 
     private static String TAG = CreateNoteViewModel.class.getSimpleName();
 
-    private NoteDbRepository repository;
+    private NoteRepository repository;
 
     private MutableLiveData<String> title =
             new MutableLiveData<>("");
@@ -43,7 +43,7 @@ public class CreateNoteViewModel extends ViewModel {
     private LiveData<String> dateText = Transformations.map(date, d ->
             d == null ? "" : Note.DATE_FORMAT.format(new Date(d)));
 
-    CreateNoteViewModel(@NotNull NoteDbRepository repository) {
+    CreateNoteViewModel(@NotNull NoteRepository repository) {
         this.repository = repository;
     }
 
@@ -107,8 +107,6 @@ public class CreateNoteViewModel extends ViewModel {
                 dateLong,
                 importance.getValue(),
                 imagePath.getValue());
-
-        Log.d(TAG, String.format("Saving: %s", note.toString()));
 
         repository.insert(note);
     }

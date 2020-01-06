@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import ua.nure.liubchenko.lab1.data.repos.NoteDbRepository;
+import ua.nure.liubchenko.lab1.data.repos.NoteFileRepository;
 import ua.nure.liubchenko.lab1.databinding.ActivityShowNoteBinding;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 import ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModel;
@@ -52,7 +53,7 @@ public class ShowNoteActivity extends AppCompatActivity {
         long noteId = getIntent().getLongExtra(Note.class.getName(), -1);
 
         ShowNoteViewModelFactory factory =
-                InjectorUtils.provideNoteDetailsViewModelFactory(this, noteId);
+                InjectorUtils.provideFileNoteDetailsViewModelFactory(this, noteId);
 
         viewModel = new ViewModelProvider(this, factory).get(ShowNoteViewModel.class);
 
@@ -60,9 +61,10 @@ public class ShowNoteActivity extends AppCompatActivity {
 
         binding.setViewModel(viewModel);
 
-        NoteDbRepository noteRepository = InjectorUtils.getNoteDbRepository(this);
+        NoteFileRepository noteRepository = InjectorUtils.getNoteFileRepository(this);
 
         noteRepository.getNote(noteId).observe(this, note -> {
+            Log.d(TAG, note.toString());
             viewModel.setTitle(note.getTitle());
             viewModel.setDescription(note.getDescription());
             viewModel.setImportance(note.getImportance().name());

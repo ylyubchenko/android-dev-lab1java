@@ -44,7 +44,7 @@ public class NoteListActivity extends AppCompatActivity {
         });
 
         NoteListViewModelFactory factory =
-                InjectorUtils.provideNoteListViewModelFactory(this);
+                InjectorUtils.provideFileNoteListViewModelFactory(this);
 
         viewModel = new ViewModelProvider(this, factory).get(NoteListViewModel.class);
 

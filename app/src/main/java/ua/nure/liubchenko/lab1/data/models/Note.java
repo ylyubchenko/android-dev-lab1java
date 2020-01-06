@@ -3,6 +3,7 @@ package ua.nure.liubchenko.lab1.data.models;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -34,7 +35,15 @@ public class Note {
 
     private String imagePath;
 
-    public Note(long noteId, String title, String description, long date, Importance importance, String imagePath) {
+    @Ignore
+    public Note() { }
+
+    public Note(long noteId,
+                String title,
+                String description,
+                long date,
+                Importance importance,
+                String imagePath) {
         this.noteId = noteId;
         this.title = title;
         this.description = description;
@@ -47,15 +56,31 @@ public class Note {
         return noteId;
     }
 
+    public void setNoteId(long noteId) {
+        this.noteId = noteId;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public long getDate() { return date; }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
 
     public String getDateAsString() {
         return DATE_FORMAT.format(new Date(date));
@@ -65,8 +90,16 @@ public class Note {
         return importance;
     }
 
+    public void setImportance(Importance importance) {
+        this.importance = importance;
+    }
+
     public String getImagePath() {
         return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public enum Importance {

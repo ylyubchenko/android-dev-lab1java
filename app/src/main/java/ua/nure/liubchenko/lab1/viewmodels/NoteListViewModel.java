@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import ua.nure.liubchenko.lab1.data.models.Note;
-import ua.nure.liubchenko.lab1.data.repos.NoteDbRepository;
+import ua.nure.liubchenko.lab1.data.repos.NoteRepository;
 
 public class NoteListViewModel extends ViewModel {
 
     private LiveData<List<Note>> allNotes;
 
-    NoteListViewModel(@NonNull NoteDbRepository noteRepository) {
+    NoteListViewModel(@NonNull NoteRepository noteRepository) {
         allNotes = noteRepository.getAllNotes();
     }
 

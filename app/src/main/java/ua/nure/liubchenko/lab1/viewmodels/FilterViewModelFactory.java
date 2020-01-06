@@ -5,14 +5,9 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import ua.nure.liubchenko.lab1.data.repos.NoteDbRepository;
+import ua.nure.liubchenko.lab1.data.repos.NoteRepository;
 
 public class FilterViewModelFactory extends ViewModelProvider.NewInstanceFactory {
-
-    private NoteDbRepository noteRepository;
-
-    public FilterViewModelFactory(NoteDbRepository noteRepository) {
-        this.noteRepository = noteRepository;
-    }
 
     @SuppressWarnings("unchecked")
     @NonNull

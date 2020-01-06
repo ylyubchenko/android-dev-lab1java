@@ -22,20 +22,33 @@ public class InjectorUtils {
         return NoteFileRepository.getInstance(new NoteFileDao(context.getApplicationContext()));
     }
 
-    public static NoteListViewModelFactory provideNoteListViewModelFactory(Context context) {
+    public static NoteListViewModelFactory provideDbNoteListViewModelFactory(Context context) {
         return new NoteListViewModelFactory(getNoteDbRepository(context));
     }
 
-    public static ShowNoteViewModelFactory provideNoteDetailsViewModelFactory(Context context,
-                                                                              long noteId) {
+    public static NoteListViewModelFactory provideFileNoteListViewModelFactory(Context context) {
+        return new NoteListViewModelFactory(getNoteFileRepository(context));
+    }
+
+    public static ShowNoteViewModelFactory provideDbNoteDetailsViewModelFactory(Context context,
+                                                                                long noteId) {
         return new ShowNoteViewModelFactory(getNoteDbRepository(context), noteId);
     }
 
-    public static CreateNoteViewModelFactory provideCreateNoteViewModelFactory(Context context) {
+    public static ShowNoteViewModelFactory provideFileNoteDetailsViewModelFactory(Context context,
+                                                                                long noteId) {
+        return new ShowNoteViewModelFactory(getNoteFileRepository(context), noteId);
+    }
+
+    public static CreateNoteViewModelFactory provideDbCreateNoteViewModelFactory(Context context) {
         return new CreateNoteViewModelFactory(getNoteDbRepository(context));
     }
 
-    public static FilterViewModelFactory provideFilterViewModelFactory(Context context) {
-        return new FilterViewModelFactory(getNoteDbRepository(context));
+    public static CreateNoteViewModelFactory provideFileCreateNoteViewModelFactory(Context context) {
+        return new CreateNoteViewModelFactory(getNoteFileRepository(context));
+    }
+
+    public static FilterViewModelFactory provideFilterViewModelFactory() {
+        return new FilterViewModelFactory();
     }
 }

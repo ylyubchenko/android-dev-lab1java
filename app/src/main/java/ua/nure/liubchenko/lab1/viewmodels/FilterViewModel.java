@@ -25,7 +25,6 @@ public class FilterViewModel extends ViewModel {
     private MutableLiveData<Note.Importance> importance =
             new MutableLiveData<>();
 
-    // TODO - add date to layout
     private MutableLiveData<Long> date =
             new MutableLiveData<>();
 

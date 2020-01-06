@@ -14,9 +14,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.List;
 
 import ua.nure.liubchenko.lab1.ShowNoteActivity;
+import ua.nure.liubchenko.lab1.data.repos.NoteRepository;
 import ua.nure.liubchenko.lab1.databinding.NoteListItemBinding;
 import ua.nure.liubchenko.lab1.data.models.Note;
-import ua.nure.liubchenko.lab1.data.repos.NoteDbRepository;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
@@ -25,13 +25,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     private Context context;
 
-    private NoteDbRepository noteRepository;
+    private NoteRepository noteRepository;
 
     private List<Note> notes;
 
     public NoteAdapter(Context context) {
         this.context = context;
-        noteRepository = InjectorUtils.getNoteDbRepository(context);
+        noteRepository = InjectorUtils.getNoteFileRepository(context);
     }
 
     @Override

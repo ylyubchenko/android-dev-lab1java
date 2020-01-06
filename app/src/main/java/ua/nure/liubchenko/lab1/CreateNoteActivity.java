@@ -47,7 +47,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_note);
 
         CreateNoteViewModelFactory factory =
-                InjectorUtils.provideCreateNoteViewModelFactory(this);
+                InjectorUtils.provideFileCreateNoteViewModelFactory(this);
 
         viewModel = new ViewModelProvider(this, factory).get(CreateNoteViewModel.class);
 
