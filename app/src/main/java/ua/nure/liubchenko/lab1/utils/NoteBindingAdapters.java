@@ -8,7 +8,7 @@ import androidx.core.widget.ImageViewCompat;
 import androidx.databinding.BindingAdapter;
 
 import ua.nure.liubchenko.lab1.R;
-import ua.nure.liubchenko.lab1.data.Note;
+import ua.nure.liubchenko.lab1.data.models.Note;
 
 public class NoteBindingAdapters {
 

@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import ua.nure.liubchenko.lab1.data.Note;
-import ua.nure.liubchenko.lab1.data.NoteDbRepository;
+import ua.nure.liubchenko.lab1.data.models.Note;
+import ua.nure.liubchenko.lab1.data.repos.NoteDbRepository;
 
 public class NoteListViewModel extends ViewModel {
 

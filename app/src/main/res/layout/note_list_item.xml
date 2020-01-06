@@ -8,7 +8,7 @@
     <data>
         <variable
             name="note"
-            type="ua.nure.liubchenko.lab1.data.Note"/>
+            type="ua.nure.liubchenko.lab1.data.models.Note"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView

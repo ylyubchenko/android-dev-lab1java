@@ -13,8 +13,8 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import ua.nure.liubchenko.lab1.data.Note;
-import ua.nure.liubchenko.lab1.data.NoteDbRepository;
+import ua.nure.liubchenko.lab1.data.models.Note;
+import ua.nure.liubchenko.lab1.data.repos.NoteDbRepository;
 
 public class CreateNoteViewModel extends ViewModel {
 

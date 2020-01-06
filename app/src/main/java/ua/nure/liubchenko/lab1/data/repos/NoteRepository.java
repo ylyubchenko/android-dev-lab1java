@@ -1,8 +1,10 @@
-package ua.nure.liubchenko.lab1.data;
+package ua.nure.liubchenko.lab1.data.repos;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+
+import ua.nure.liubchenko.lab1.data.models.Note;
 
 public interface NoteRepository {
 

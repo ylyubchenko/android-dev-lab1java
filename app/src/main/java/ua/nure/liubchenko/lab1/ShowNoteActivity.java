@@ -27,13 +27,13 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import ua.nure.liubchenko.lab1.data.NoteDbRepository;
+import ua.nure.liubchenko.lab1.data.repos.NoteDbRepository;
 import ua.nure.liubchenko.lab1.databinding.ActivityShowNoteBinding;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 import ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModel;
 import ua.nure.liubchenko.lab1.viewmodels.ShowNoteViewModelFactory;
 
-import ua.nure.liubchenko.lab1.data.Note;
+import ua.nure.liubchenko.lab1.data.models.Note;
 
 public class ShowNoteActivity extends AppCompatActivity {
 
@@ -60,7 +60,7 @@ public class ShowNoteActivity extends AppCompatActivity {
 
         binding.setViewModel(viewModel);
 
-        NoteDbRepository noteRepository = InjectorUtils.getNoteRepository(this);
+        NoteDbRepository noteRepository = InjectorUtils.getNoteDbRepository(this);
 
         noteRepository.getNote(noteId).observe(this, note -> {
             viewModel.setTitle(note.getTitle());

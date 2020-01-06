@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import ua.nure.liubchenko.lab1.databinding.ActivityCreateNoteBinding;
-import ua.nure.liubchenko.lab1.data.Note;
+import ua.nure.liubchenko.lab1.data.models.Note;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 import ua.nure.liubchenko.lab1.viewmodels.CreateNoteViewModel;
 import ua.nure.liubchenko.lab1.viewmodels.CreateNoteViewModelFactory;

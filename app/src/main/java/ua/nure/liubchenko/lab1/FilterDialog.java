@@ -11,7 +11,6 @@ import android.os.Bundle;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,9 +26,9 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import ua.nure.liubchenko.lab1.data.Filter;
+import ua.nure.liubchenko.lab1.data.models.Filter;
 import ua.nure.liubchenko.lab1.databinding.FilterFragmentBinding;
-import ua.nure.liubchenko.lab1.data.Note;
+import ua.nure.liubchenko.lab1.data.models.Note;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 import ua.nure.liubchenko.lab1.viewmodels.FilterViewModel;
 import ua.nure.liubchenko.lab1.viewmodels.FilterViewModelFactory;

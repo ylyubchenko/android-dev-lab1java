@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.stream.Stream;
 
-import ua.nure.liubchenko.lab1.data.Filter;
-import ua.nure.liubchenko.lab1.data.Note;
+import ua.nure.liubchenko.lab1.data.models.Filter;
+import ua.nure.liubchenko.lab1.data.models.Note;
 
 public class FilterViewModel extends ViewModel {
 

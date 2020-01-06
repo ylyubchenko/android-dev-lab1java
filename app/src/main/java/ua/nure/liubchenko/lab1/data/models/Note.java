@@ -1,4 +1,4 @@
-package ua.nure.liubchenko.lab1.data;
+package ua.nure.liubchenko.lab1.data.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

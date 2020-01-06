@@ -11,6 +11,9 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import static ua.nure.liubchenko.lab1.utils.Constants.DATABASE_NAME;
+
+import ua.nure.liubchenko.lab1.data.daos.NoteDbDao;
+import ua.nure.liubchenko.lab1.data.models.Note;
 import ua.nure.liubchenko.lab1.workers.SeedDatabaseWorker;
 
 @Database(entities = {Note.class}, version = 1, exportSchema = false)

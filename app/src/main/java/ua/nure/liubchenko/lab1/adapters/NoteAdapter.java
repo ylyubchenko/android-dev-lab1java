@@ -15,8 +15,8 @@ import java.util.List;
 
 import ua.nure.liubchenko.lab1.ShowNoteActivity;
 import ua.nure.liubchenko.lab1.databinding.NoteListItemBinding;
-import ua.nure.liubchenko.lab1.data.Note;
-import ua.nure.liubchenko.lab1.data.NoteDbRepository;
+import ua.nure.liubchenko.lab1.data.models.Note;
+import ua.nure.liubchenko.lab1.data.repos.NoteDbRepository;
 import ua.nure.liubchenko.lab1.utils.InjectorUtils;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
@@ -31,7 +31,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public NoteAdapter(Context context) {
         this.context = context;
-        noteRepository = InjectorUtils.getNoteRepository(context);
+        noteRepository = InjectorUtils.getNoteDbRepository(context);
     }
 
     @Override

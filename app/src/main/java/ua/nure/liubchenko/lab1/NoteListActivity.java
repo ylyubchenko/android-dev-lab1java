@@ -11,8 +11,8 @@ import android.util.Log;
 import java.util.List;
 
 import ua.nure.liubchenko.lab1.adapters.NoteAdapter;
-import ua.nure.liubchenko.lab1.data.Filter;
-import ua.nure.liubchenko.lab1.data.Note;
+import ua.nure.liubchenko.lab1.data.models.Filter;
+import ua.nure.liubchenko.lab1.data.models.Note;
 import ua.nure.liubchenko.lab1.databinding.ActivityNoteListBinding;
 import ua.nure.liubchenko.lab1.viewmodels.NoteListViewModel;
 import ua.nure.liubchenko.lab1.viewmodels.NoteListViewModelFactory;

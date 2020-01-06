@@ -1,7 +1,7 @@
 package ua.nure.liubchenko.lab1.utils;
 
 import androidx.room.TypeConverter;
-import ua.nure.liubchenko.lab1.data.Note.Importance;
+import ua.nure.liubchenko.lab1.data.models.Note.Importance;
 
 public class NoteTypeConverters {
     @TypeConverter
